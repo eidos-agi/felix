@@ -18,6 +18,25 @@ Public repo:
 https://github.com/eidos-agi/felix
 ```
 
+## Install / Run
+
+Felix is public alpha. Until the first packaged release is published, run it from a source checkout:
+
+```bash
+git clone https://github.com/eidos-agi/felix.git
+cd felix
+python -m pip install -e ".[dev]"
+felix --help
+```
+
+You can also run without installing:
+
+```bash
+python -m felix.cli --help
+```
+
+`scridos` is Felix's default Eidos wiki/task adapter. It is useful for this repo's own wiki checks, but it is not a universal requirement for every public Felix user or every Felix-built agent.
+
 ## Commands
 
 ```bash

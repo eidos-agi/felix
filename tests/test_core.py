@@ -95,6 +95,7 @@ def test_scaffold_plan_specializes_knox_and_capcom():
 
 def test_doctor_reports_wiki():
     assert any(line.startswith("wiki:") for line in doctor())
+    assert any(line.startswith("scridos:") and ("ok" in line or "optional-missing" in line) for line in doctor())
 
 
 def test_self_checks_cover_foss_and_mascot():
@@ -164,6 +165,12 @@ def test_agent_interview_detects_registered_overlap():
     assert "possible overlap: knox" in text
 
 
+def test_agent_interview_ignores_generic_overlap_words():
+    text = render_agent_interview("tasks", purpose="repo wiki build helper")
+
+    assert "no obvious registered-agent overlap" in text
+
+
 def test_scaffold_dry_run_lists_generated_repo_files(tmp_path):
     target = tmp_path / "test-agent"
     result = scaffold("Test Agent", root=target)
@@ -228,3 +235,10 @@ def test_brand_safety_reports_findings(tmp_path):
     assert len(findings) == 1
     assert findings[0].path == risky_file
     assert "FAIL" in render_brand_safety(tmp_path)
+
+
+def test_brand_safety_ignores_binary_like_extensionless_files(tmp_path):
+    binary_file = tmp_path / "binary-ish"
+    binary_file.write_bytes(b"\xff\xfe\x00\x81not text")
+
+    assert audit_brand_safety(tmp_path) == ()

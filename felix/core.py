@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import time
 import urllib.error
 import urllib.request
 
@@ -84,6 +85,13 @@ OVERLAP_STOPWORDS = frozenset(
         "maintainer",
         "maintenance",
         "cli",
+        "build",
+        "docs",
+        "repo",
+        "repos",
+        "task",
+        "tasks",
+        "wiki",
     }
 )
 
@@ -199,12 +207,17 @@ def agentic_context_source() -> str:
     return AGENTIC_INTELLIGENCE_CONTEXT_URL
 
 
-def fetch_agentic_context(timeout_seconds: float = 10.0) -> str:
-    try:
-        with urllib.request.urlopen(AGENTIC_INTELLIGENCE_CONTEXT_URL, timeout=timeout_seconds) as response:
-            return response.read().decode("utf-8")
-    except (urllib.error.URLError, TimeoutError) as exc:
-        raise RuntimeError(f"Could not fetch agentic intelligence context from {AGENTIC_INTELLIGENCE_CONTEXT_URL}: {exc}") from exc
+def fetch_agentic_context(timeout_seconds: float = 10.0, attempts: int = 2) -> str:
+    last_error: Exception | None = None
+    for attempt in range(1, max(1, attempts) + 1):
+        try:
+            with urllib.request.urlopen(AGENTIC_INTELLIGENCE_CONTEXT_URL, timeout=timeout_seconds) as response:
+                return response.read().decode("utf-8")
+        except (urllib.error.URLError, TimeoutError) as exc:
+            last_error = exc
+            if attempt < attempts:
+                time.sleep(0.25)
+    raise RuntimeError(f"Could not fetch agentic intelligence context from {AGENTIC_INTELLIGENCE_CONTEXT_URL}: {last_error}") from last_error
 
 
 def _brand_safety_files(root: Path) -> tuple[Path, ...]:
@@ -221,7 +234,7 @@ def audit_brand_safety(root: Path | None = None) -> tuple[BrandSafetyFinding, ..
     scan_root = (root or REPO_ROOT).resolve()
     findings: list[BrandSafetyFinding] = []
     for path in _brand_safety_files(scan_root):
-        text = path.read_text(encoding="utf-8").lower()
+        text = path.read_text(encoding="utf-8", errors="ignore").lower()
         for reference in BRAND_SAFETY_FORBIDDEN_REFERENCES:
             if reference in text:
                 findings.append(BrandSafetyFinding(path, reference))
@@ -551,10 +564,15 @@ def roadmap() -> str:
 
 def doctor() -> list[str]:
     findings: list[str] = []
-    for binary in ("git", "gh", "scridos"):
+    for binary in ("git", "gh"):
         path = shutil.which(binary)
         status = "ok" if path else "missing"
         findings.append(f"{binary}: {status}{f' ({path})' if path else ''}")
+    scridos = shutil.which("scridos")
+    findings.append(
+        f"scridos: {'ok' if scridos else 'optional-missing'}"
+        f"{f' ({scridos})' if scridos else ' (Eidos wiki/task adapter; only required for Scridos-backed repos)'}"
+    )
     findings.append(f"wiki: {'ok' if WIKI_ROOT.exists() else 'missing'} ({WIKI_ROOT})")
     return findings
 
