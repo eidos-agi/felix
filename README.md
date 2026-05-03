@@ -52,6 +52,8 @@ Every agent Felix creates should have:
 - clear router or orchestrator entry
 - an abstract agent interface so Felix can work on capabilities, not storage layout
 - agentic intelligence context injection that fetches the latest configured gist before the LLM thinks
+- agent command framing around `have`, `want`, and `don't want`
+- tool output reconciliation that treats tools as evidence, not verdicts
 - open-source health files when the agent may become reusable public software
 
 Felix ships with Eidos-flavored defaults because that is where he was born:
@@ -167,6 +169,8 @@ Felix's repo-native wiki/task direction is informed by [Andrej Karpathy's `llm-w
 Credit also goes to [`Pratiyush/llm-wiki`](https://github.com/Pratiyush/llm-wiki) and the broader LLM Wiki implementation wave for surfacing practical search, indexing, and agent-consumable wiki patterns. Those ideas helped clarify the direction that became Scridos, the Eidos package Felix uses as its default adapter for repo-native wikis, projects, milestones, and tasks.
 
 Felix also treats Daniel Shanklin's [Agentic Intelligence gist](https://gist.github.com/dshanklin-bv/0ea9eae3845566a255f4fe9e0bf21590) as live context that Felix-built CLIs should fetch before the LLM thinks. Use `felix agentic-context-source` to see the unpinned raw URL and `felix agentic-context` to fetch the latest version.
+
+The same standard should shape agent commands. A Felix-built CLI should ask for the current `have`, the desired `want`, and the relevant `don't want`, then treat tool outputs as evidence for the LLM to reconcile rather than verdicts to repeat.
 
 ## Self-Documentation
 

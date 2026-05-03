@@ -35,6 +35,8 @@ def test_standards_require_wiki_and_tasks():
     assert "original agent identity image" in text
     assert "visible agent name" in text
     assert "agentic intelligence context injection" in text
+    assert "have, want, and don't want" in text
+    assert "tools as evidence" in text
 
 
 def test_roadmap_prioritizes_knox_then_capcom():
@@ -45,6 +47,7 @@ def test_roadmap_prioritizes_knox_then_capcom():
     assert "Scaffold Dewey" in text
     assert "agent identity image prompts" in text
     assert "agentic intelligence gist" in text
+    assert "have/want/don't-want" in text
 
 
 def test_scaffold_plan_specializes_knox_and_capcom():
@@ -52,6 +55,8 @@ def test_scaffold_plan_specializes_knox_and_capcom():
     assert "acknowledgement" in scaffold_plan("capcom")
     assert "Code Context Engine" in scaffold_plan("dewey")
     assert "agentic-context" in scaffold_plan("knox")
+    assert "have, want, and don't want" in scaffold_plan("knox")
+    assert "evidence to reconcile" in scaffold_plan("knox")
 
 
 def test_doctor_reports_wiki():

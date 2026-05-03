@@ -19,12 +19,22 @@ Every agent Felix creates or maintains should have:
 - open-source health files when the agent may become reusable public software
 - router or orchestrator entry
 - agentic intelligence context injection that fetches the latest configured gist before the LLM thinks
+- agent command framing around `have`, `want`, and `don't want`
+- tool output reconciliation that treats tools as evidence, not verdicts
 
 The CLI should be about the work, not about storage internals.
 
 ## Agentic Intelligence Context
 
 Every CLI Felix builds should expose an `agentic-context` command or equivalent startup hook. That surface should fetch the latest unpinned Agentic Intelligence gist before the LLM thinks, because memory/context should be substrate rather than a tool the agent might forget to call.
+
+Agent-facing commands should also apply the gist's orientation model:
+
+- `have`: current state, context, resources, and evidence
+- `want`: target state or success condition
+- `don't want`: failure modes, boundaries, and technically-correct-but-wrong outcomes
+
+Tool outputs should be presented as evidence for the LLM to reconcile, not verdicts the CLI expects the LLM to parrot.
 
 Source:
 

@@ -106,6 +106,8 @@ STANDARD_AGENT_REQUIREMENTS = (
     "router or orchestrator entry",
     "abstract agent interface so Felix works on capabilities, not storage layout",
     "agentic intelligence context injection that fetches the latest configured gist before the LLM thinks",
+    "agent command framing that asks for have, want, and don't want before action",
+    "tool output reconciliation that treats tools as evidence, not verdicts",
 )
 
 
@@ -149,6 +151,7 @@ def roadmap() -> str:
             "6. Add `felix scaffold agent-name` to create the standard repo skeleton.",
             "6a. For user-specific private maintainer instances, install into the user's personal repo area.",
             "6b. Add an agentic-context command or equivalent startup hook that fetches the latest agentic intelligence gist before the LLM thinks.",
+            "6c. Make agent commands ask for have/want/don't-want and reconcile tool outputs as evidence.",
             "7. Add agent identity image prompts to scaffolds so new agents have original visual identity.",
             "8. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
             "9. Add an agent adapter layer so checks and repairs compose across repo/wiki/task layouts.",
@@ -223,6 +226,8 @@ def scaffold_plan(name: str) -> str:
         "- add repo-native project, milestones, and tasks",
         "- add assets/ with an original agent identity image prompt and optional generated image",
         "- add an `agentic-context` CLI command or startup hook that fetches the latest agentic intelligence gist",
+        "- add agent command framing around have, want, and don't want",
+        "- make tool outputs evidence to reconcile, not verdicts to parrot",
         "- install editable CLI and verify `--help`",
         "- teach the chosen router/orchestrator how to route to it",
         "- commit and push",
