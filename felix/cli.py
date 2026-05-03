@@ -1,0 +1,75 @@
+from __future__ import annotations
+
+import argparse
+
+from .core import doctor, find_agent, list_agents, roadmap, scaffold_plan, standards
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="felix",
+        description="Fix-it Felix: build and maintain Daniel's personal agents.",
+    )
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    subparsers.add_parser("doctor", help="check local prerequisites")
+    subparsers.add_parser("roadmap", help="show Felix's agent-building roadmap")
+    subparsers.add_parser("standards", help="show standard requirements for every agent")
+
+    agents_parser = subparsers.add_parser("agents", help="inspect known agents")
+    agents_sub = agents_parser.add_subparsers(dest="agents_command", required=True)
+    agents_sub.add_parser("list", help="list known agents")
+    show_parser = agents_sub.add_parser("show", help="show one known agent")
+    show_parser.add_argument("name")
+
+    scaffold_parser = subparsers.add_parser("scaffold-plan", help="show the planned scaffold for an agent")
+    scaffold_parser.add_argument("name")
+
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+
+    if args.command == "doctor":
+        print("\n".join(doctor()))
+        return 0
+
+    if args.command == "roadmap":
+        print(roadmap())
+        return 0
+
+    if args.command == "standards":
+        for item in standards():
+            print(f"- {item}")
+        return 0
+
+    if args.command == "agents":
+        if args.agents_command == "list":
+            for agent in list_agents():
+                print(f"{agent.name}\t{agent.status}\t{agent.role}")
+            return 0
+        if args.agents_command == "show":
+            try:
+                agent = find_agent(args.name)
+            except KeyError as exc:
+                parser.error(str(exc))
+            print(f"name: {agent.name}")
+            print(f"role: {agent.role}")
+            print(f"repo: {agent.repo}")
+            print(f"status: {agent.status}")
+            print(f"next: {agent.next_action}")
+            return 0
+
+    if args.command == "scaffold-plan":
+        print(scaffold_plan(args.name))
+        return 0
+
+    parser.error("unhandled command")
+    return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
