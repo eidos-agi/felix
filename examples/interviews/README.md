@@ -17,6 +17,8 @@ The interview should establish:
 - where the agent sits in the agent org chart when that topology applies
 - which existing agent may already own the work
 - whether it deserves its own repo or should stay a narrow embedded project tool
+- where code, durable knowledge, task execution, live state, and learned facts should live
+- whether the CLI should run from source checkout, editable install, packaged install, or parent-project invocation
 - what `doctor`, `check`, probes, wiki memory, task memory, and safety gates prove
 - what first CLI verbs make the work executable
 

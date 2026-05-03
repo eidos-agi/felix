@@ -80,6 +80,8 @@ def test_scaffold_plan_specializes_knox_and_capcom():
     assert "agentic-context" in scaffold_plan("knox")
     assert "felix interview knox" in scaffold_plan("knox")
     assert "choose the agent topology" in scaffold_plan("knox")
+    assert "choose the knowledge home" in scaffold_plan("knox")
+    assert "choose the run mode" in scaffold_plan("knox")
     assert "AGENTS.md wakeup file" in scaffold_plan("knox")
     assert "have, want, and don't want" in scaffold_plan("knox")
     assert "evidence to reconcile" in scaffold_plan("knox")
@@ -140,6 +142,8 @@ def test_agent_interview_names_role_boundary_and_overlap():
     assert "Do not scaffold yet" in text
     assert "Role boundary" in text
     assert "What topology fits this agent" in text
+    assert "Where do durable knowledge, task execution, live state, and learned facts belong" in text
+    assert "Should the CLI run from source checkout" in text
     assert "Have / want / don't want" in text
     assert "What should `doctor` check?" in text
     assert "What CLI verbs should exist" in text

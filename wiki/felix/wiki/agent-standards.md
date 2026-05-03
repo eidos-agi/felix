@@ -8,9 +8,10 @@ tags: [felix, standards, agents]
 Every agent Felix creates or maintains should have:
 
 - public or private GitHub repo, chosen explicitly
-- installable CLI with a short command name
-- repo-native wiki or documentation space checked into the repo
-- repo-native project with milestones and task list
+- runnable CLI with an explicit run mode: source checkout, editable install, packaged install, or project-local invocation
+- explicit knowledge home: repo-native wiki/docs, central wiki section, or parent-project docs
+- explicit task home: repo-native task list, central project/task system, or parent-project task list
+- explicit live-state owner for catalogs, probes, learned facts, and operational status
 - north-stars page
 - self-improvement loop page
 - tests for core local behavior
@@ -23,7 +24,7 @@ Every agent Felix creates or maintains should have:
 - pre-scaffold interview covering role boundary, constraints, overlap, and proof
 - agent topology covering whether the agent is a free agent, specialist, embedded tool, org-chart role, router, auditor, librarian, communicator, or operator
 - relationship placement when needed: requester, owner, peers, downstream consumers, and escalation path
-- dedicated repo when the agent owns durable memory, tasks, docs, installability, or self-improvement; embedded project tool only when the role is narrow and subordinate
+- dedicated repo when the agent owns durable memory, tasks, docs, runnable CLI surface, or self-improvement; embedded project tool only when the role is narrow and subordinate
 - Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
 - memory as thinking substrate, not an optional tool call
 - tools as instruments for world access, not behavior modifiers or authorities
@@ -52,6 +53,8 @@ The interview must establish:
 - which agent topology applies
 - where the agent sits in the agent org chart when that topology applies
 - whether the role deserves its own repo or should remain a narrow embedded tool
+- where code, durable knowledge, task execution, live state, and learned facts should live
+- whether the CLI should run from source, editable install, packaged install, or parent-project invocation
 - the user's methods, constraints, and safety gates
 - what `doctor`, `check`, probes, catalogs, or diagnostics should exist
 - what proof shows this agent is useful and not duplicative
@@ -86,13 +89,15 @@ Generated CLIs should copy or adapt that template. Use `felix scaffold <name>` f
 
 The scaffold command writes only when passed `--write`; by default it lists the files it would create.
 
+The scaffold's default wiki and task files are defaults, not doctrine. If the interview chooses a central wiki or parent-project task home, the generated repo should link that canonical home and remove or clearly subordinate any local duplicate.
+
 ## Agents Wakeup
 
 Every Felix-built repo should include `AGENTS.md` at the root. It should tell a fresh LLM:
 
 - what this agent is
 - what to read first
-- where wiki memory and task state live
+- where wiki memory, task state, live state, and learned facts live
 - how to frame `have / want / don't want`
 - what not to do
 - what proof makes a run done

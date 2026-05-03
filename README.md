@@ -47,9 +47,10 @@ Felix builds and maintains agents. It does not become the operating system, the 
 Every agent Felix creates should have:
 
 - public or private repository visibility chosen explicitly
-- installable CLI
-- repo-native wiki or documentation space checked into the repo
-- repo-native project with milestones and tasks
+- runnable CLI with an explicit run mode: source checkout, editable install, packaged install, or project-local invocation
+- explicit knowledge home: repo-native wiki/docs, central wiki section, or parent-project docs
+- explicit task home: repo-native task list, central project/task system, or parent-project task list
+- explicit live-state owner for catalogs, probes, learned facts, and operational status
 - north-stars page
 - self-improvement loop
 - tests for core local behavior
@@ -62,7 +63,7 @@ Every agent Felix creates should have:
 - pre-scaffold interview covering role boundary, constraints, overlap, and proof
 - agent topology: free agent, specialist, embedded tool, org-chart role, router, auditor, librarian, communicator, or operator
 - relationship placement when needed: requester, owner, peers, downstream consumers, and escalation path
-- repo/lifecycle decision: embedded tool only when narrow; dedicated repo when the agent owns durable memory, tasks, docs, installability, or self-improvement
+- repo/lifecycle decision: embedded tool only when narrow; dedicated repo when the agent owns durable memory, tasks, docs, runnable CLI surface, or self-improvement
 - Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
 - memory as thinking substrate, not an optional tool call
 - tools as instruments for world access, not behavior modifiers or authorities
@@ -94,7 +95,11 @@ The interview makes the user define the human role being compiled into an agent,
 
 The interview is universal. It is not a Sage-specific workflow; Sage is only one example of turning a repeated maintenance job into a CLI-shaped agent. See [`examples/interviews`](examples/interviews) for different agent types.
 
-Felix should also think like an organization designer without forcing every agent into an org chart. Some agents are free agents, some are specialists, some are embedded tools, and some are formal roles inside a larger agent organization. The interview should identify the topology first, then decide ownership, handoffs, repo shape, and proof. If the role has its own memory, tasks, docs, installability, and self-improvement loop, Felix should prefer a dedicated repo. Embedded tools are for narrow project diagnostics, not full agents.
+Felix should also think like an organization designer without forcing every agent into an org chart. Some agents are free agents, some are specialists, some are embedded tools, and some are formal roles inside a larger agent organization. The interview should identify the topology first, then decide ownership, handoffs, repo shape, knowledge home, task home, live-state owner, run mode, and proof. If the role has its own memory, tasks, docs, runnable CLI surface, and self-improvement loop, Felix should prefer a dedicated repo. Embedded tools are for narrow project diagnostics, not full agents.
+
+Dedicated repo does not automatically mean dedicated wiki. A domain agent may own code and live operational state in its repo while maintaining durable conceptual knowledge in a central wiki used by the larger organization. Felix should make that source-of-truth split explicit instead of blindly generating a second wiki that can drift.
+
+Likewise, runnable does not always mean globally installed. Some agents learn by editing their own source checkout: probes update catalogs, catalog updates get committed, and the working copy is the substrate. For those agents, run-from-source may be the healthiest mode. Packaged installs are better when users need stable snapshots.
 
 ## Design Principle
 
@@ -162,7 +167,7 @@ The public/private rule is simple:
 - owner-specific context belongs in the private maintainer instance
 - uncertain ideas should be classified before they are upstreamed
 
-A private instance should still use Felix standards: CLI, wiki/docs, tasks, tests, explicit repo visibility, identity image prompt, and router/orchestrator entry.
+A private instance should still use Felix standards: CLI, explicit knowledge/task homes, tests, explicit repo visibility, identity image prompt, and router/orchestrator entry.
 
 For a user-specific private instance, install into that user's personal repo area. It can be named `felix` in that private namespace; public Felix remains the upstream project for everyone else.
 
@@ -237,7 +242,7 @@ felix scaffold surfari
 felix scaffold surfari --write
 ```
 
-The scaffold includes root `AGENTS.md`, Python package and CLI files, tests, wiki pages, a task skeleton, and an identity image prompt.
+The scaffold includes root `AGENTS.md`, Python package and CLI files, tests, default wiki pages, a task skeleton, and an identity image prompt. If the interview selects a central wiki or parent-project task home, adapt or delete the default wiki/task skeleton and link the canonical homes from the README and AGENTS.md.
 
 ## Brand Safety
 

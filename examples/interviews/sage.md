@@ -15,7 +15,7 @@ Boundary:
 - owns Sage Intacct diagnostics and object catalog maintenance
 - does not own the warehouse, Dagster deployment, finance policy, or credential vault
 - may produce evidence for another agent or human to act on
-- deserves a dedicated repo if it owns durable Sage memory, tasks, docs, installability, and self-improvement
+- deserves a dedicated repo if it owns durable Sage state, tasks, docs, runnable CLI surface, and self-improvement
 - should remain embedded only if it is a narrow diagnostic helper subordinate to one project
 
 Agent topology:
@@ -28,6 +28,14 @@ Relationships:
 - peers: warehouse, Dagster, vault, and finance agents
 - downstream consumers: data pipelines and maintainers deciding what to enable
 - escalation path: human/Sage admin for permissions, credentials, or licensed module questions
+
+Source-of-truth split:
+
+- code home: `agent-sage` repo
+- live state: `sage/core.py` catalog and probe results in the agent repo
+- durable knowledge: central Greenmark/Cerebro wiki section for Sage
+- execution tasks: either the agent repo task list for implementation work or central project tasks for stakeholder-facing work
+- run mode: source checkout while the agent is learning and committing catalog changes; packaged install only when a stable snapshot is wanted
 
 Expected first verbs:
 
