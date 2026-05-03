@@ -19,4 +19,4 @@ When an agent is broken, Felix should diagnose the smallest concrete fix and lea
 
 ## Ship The Standard
 
-Every agent should have a CLI, explicit repo visibility, Scridos wiki, task list, tests, and a routing entry.
+Every agent should have a CLI, explicit repo visibility, wiki/docs, task list, tests, and a routing entry.

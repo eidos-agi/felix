@@ -1,8 +1,8 @@
 # FOSS Forge Compliance
 
-Felix follows the local `foss-forge` standard for agentic software.
+Felix follows `foss-forge` as its default open-source-health standard for agentic software.
 
-Source standard:
+Source standard in the Eidos workspace:
 
 ```bash
 ~/repos-eidos-agi/foss-forge
@@ -22,7 +22,8 @@ Source standard:
 - CLI commands describe the work they do.
 - Public functions are typed.
 - Boundaries are documented so agents do not route secrets, outreach, web surfing, or context retrieval back into Felix.
-- Agent standards require wiki, task list, tests, install path, and Reeves route.
+- Agent standards require wiki/docs, task list, tests, install path, and router/orchestrator route.
+- Public-facing agent standards should say wiki/docs, task list, tests, install path, and router/orchestrator route.
 
 ## Engineering Layer
 

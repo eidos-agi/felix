@@ -14,4 +14,4 @@ tags: [felix, agents, map]
 - Dewey: registered AI librarian for local indexed context retrieval; repo not shipped yet.
 - Felix: builder and maintainer for the agent system.
 
-Felix keeps the build standards. Reeves keeps routing awareness.
+Felix keeps the build standards. A configured router/orchestrator keeps routing awareness.

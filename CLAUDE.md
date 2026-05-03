@@ -24,14 +24,14 @@ https://github.com/eidos-agi/felix
 - new-agent scaffolding
 - agent health audits
 - repair playbooks
-- standards for CLI, wiki, tasks, tests, install, GitHub, and Reeves routing
-- FOSS Forge alignment for reusable agentic software
+- standards for CLI, wiki/docs, tasks, tests, install, GitHub, and router/orchestrator integration
+- open-source health alignment for reusable agentic software
 
 ## Boundaries
 
 Felix builds and maintains agents. It does not absorb their domains:
 
-- Reeves is an operating-system/router example.
+- Reeves is one operating-system/router example.
 - Knox owns secrets/access.
 - Capcom owns important outreach.
 - Dewey owns local indexed context retrieval.
@@ -53,11 +53,11 @@ felix agents list
 
 `felix self` is the dogfood command: Felix checks his own canonical path, FOSS Forge files, mascot, wiki, and task list.
 
-When moving paths or agent ownership, update both Felix and Reeves. Reeves must know where to route; Felix must know what to build and repair.
+When moving paths or agent ownership, update Felix and any configured router/orchestrator. The router must know where to route; Felix must know what to build and repair.
 
 ## FOSS Forge Rules
 
-Felix follows FOSS Forge principles:
+Felix follows FOSS Forge as its default open-source-health adapter:
 
 - human layer: license, changelog, contributing guide, code of conduct, security policy
 - agent layer: clear commands, typed public behavior, actionable errors

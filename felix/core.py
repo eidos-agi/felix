@@ -86,17 +86,17 @@ AGENTS: tuple[AgentSpec, ...] = (
 
 
 STANDARD_AGENT_REQUIREMENTS = (
-    "private GitHub repo unless explicitly public",
+    "public or private repository visibility chosen explicitly",
     "installable CLI with a short command name",
-    "Scridos wiki checked into the repo",
-    "Scridos project with milestones and task list",
+    "repo-native wiki or documentation space checked into the repo",
+    "repo-native project, milestone, and task list",
     "north-stars page",
     "self-improvement loop page",
     "tests for the core local behavior",
     "README with role, boundaries, commands, and safety gates",
     "original agent identity image or image prompt that avoids copyright imitation",
-    "FOSS Forge health files when the agent may become reusable open-source software",
-    "Reeves memory/route entry",
+    "open-source health files when the agent may become reusable public software",
+    "router or orchestrator entry",
     "abstract agent interface so Felix works on capabilities, not storage layout",
 )
 
@@ -125,7 +125,7 @@ def roadmap() -> str:
             "2. Scaffold Knox with biometric unlock and strict secret-handling rules.",
             "3. Scaffold Capcom with interruption policy, channel routing, and acknowledgement tracking.",
             "4. Scaffold Dewey as the AI librarian for local indexed context retrieval and token-cost reduction.",
-            "5. Add `felix audit` to verify each agent has CLI, wiki, Scridos tasks, tests, install, git remote.",
+            "5. Add `felix audit` to verify each agent has CLI, wiki/docs, tasks, tests, install, git remote.",
             "6. Add `felix scaffold agent-name` to create the standard repo skeleton.",
             "7. Add agent identity image prompts to scaffolds so new agents have original visual identity.",
             "8. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
@@ -178,11 +178,11 @@ def scaffold_plan(name: str) -> str:
         f"- create a canonical repo for {agent_name}",
         "- choose public or private visibility explicitly",
         "- add Python CLI package and tests",
-        "- add Scridos wiki with north-stars and self-improvement loop",
-        "- add Scridos project, milestones, and tasks",
+        "- add repo-native wiki/docs with north-stars and self-improvement loop",
+        "- add repo-native project, milestones, and tasks",
         "- add assets/ with an original agent identity image prompt and optional generated image",
         "- install editable CLI and verify `--help`",
-        "- teach Reeves how to route to it",
+        "- teach the chosen router/orchestrator how to route to it",
         "- commit and push",
     ]
     if agent_name == "knox":
@@ -197,7 +197,7 @@ def scaffold_plan(name: str) -> str:
         lines.extend(
             [
                 "- define urgency levels, quiet hours, channels, escalation, and acknowledgement",
-                "- integrate with Reeves tasks/projects as source context",
+                "- integrate with the configured task/project system as source context",
                 "- log contact attempts without leaking sensitive content unnecessarily",
             ]
         )
@@ -208,7 +208,7 @@ def scaffold_plan(name: str) -> str:
                 "- index local repos, docs, transcripts, and wiki pages without cloud dependency",
                 "- expose retrieval commands that return small source-backed context packets",
                 "- track input-token savings and stale-index risks",
-                "- integrate with Felix audits and Reeves routing without becoming a general assistant",
+                "- integrate with Felix audits and the configured router/orchestrator without becoming a general assistant",
             ]
         )
     return "\n".join(lines)

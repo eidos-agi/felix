@@ -17,10 +17,10 @@ def test_find_agent_returns_boundary():
 def test_standards_require_wiki_and_tasks():
     text = "\n".join(standards())
 
-    assert "Scridos wiki" in text
+    assert "repo-native wiki" in text
     assert "task list" in text
     assert "abstract agent interface" in text
-    assert "FOSS Forge" in text
+    assert "open-source health files" in text
     assert "original agent identity image" in text
 
 

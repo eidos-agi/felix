@@ -10,4 +10,4 @@ milestone: 001-felix-bootstrap
 
 Create Felix's capability-first adapter layer so audits and repairs operate on agents abstractly instead of hardcoding each repo layout.
 
-Done means Felix can model an agent's CLI, repo, wiki, task list, tests, install state, and Reeves route through a common interface.
+Done means Felix can model an agent's CLI, repo, wiki/docs, task list, tests, install state, and router entry through a common interface.

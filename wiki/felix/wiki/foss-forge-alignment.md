@@ -7,7 +7,7 @@ status: active
 
 # FOSS Forge Alignment
 
-Felix follows the local FOSS Forge standard from:
+Felix follows FOSS Forge as the default open-source health adapter.
 
 Use the Eidos AGI `foss-forge` repository as the source standard.
 

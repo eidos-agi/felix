@@ -9,17 +9,21 @@ Every agent Felix creates or maintains should have:
 
 - public or private GitHub repo, chosen explicitly
 - installable CLI with a short command name
-- Scridos wiki checked into the repo
-- Scridos project with milestones and task list
+- repo-native wiki or documentation space checked into the repo
+- repo-native project with milestones and task list
 - north-stars page
 - self-improvement loop page
 - tests for core local behavior
 - README with role, boundaries, commands, and safety gates
 - original agent identity image or image prompt that avoids copyright imitation
-- FOSS Forge health files when the agent may become reusable open-source software
-- Reeves memory/route entry
+- open-source health files when the agent may become reusable public software
+- router or orchestrator entry
 
 The CLI should be about the work, not about storage internals.
+
+## Default Adapters
+
+Felix's Eidos defaults are Scridos for wiki/tasks, FOSS Forge for open-source health, and Reeves for routing. Public Felix should keep those as adapters, not assumptions.
 
 ## Agent Identity Images
 

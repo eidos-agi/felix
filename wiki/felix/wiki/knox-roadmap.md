@@ -5,13 +5,13 @@ tags: [felix, knox, roadmap]
 
 # Knox Roadmap
 
-Knox replaces Reeves Vault as the dedicated secrets/access agent.
+Knox is a dedicated secrets/access agent.
 
 Core requirements:
 
 - maintain secret inventory and vault references
 - document login and recovery playbooks
 - support local biometric unlock where the operating system provides it
-- avoid raw secrets in Git, Scridos, Reeves memory, logs, and chat
+- avoid raw secrets in Git, wiki/docs, router memory, logs, and chat
 - require explicit confirmation before reveal, copy, or use actions
 - track rotation and proof-of-access tasks

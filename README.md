@@ -4,7 +4,7 @@
 
 Fix-it Felix is the agent-builder and maintainer for agent ecosystems.
 
-Felix owns the standards, scaffolds, health checks, repair playbooks, and roadmap for the other agents. Reeves can route to Felix, but Felix should be the one that remembers what a healthy agent repo looks like.
+Felix owns the standards, scaffolds, health checks, repair playbooks, and roadmap for agent ecosystems. It is meant for anyone building families of agents, CLIs, and repo-native knowledge systems.
 
 Felix now lives with the Eidos AGI forges at:
 
@@ -37,18 +37,26 @@ Felix builds and maintains agents. It does not become the operating system, the 
 
 Every agent Felix creates should have:
 
-- private GitHub repo unless explicitly public
+- public or private repository visibility chosen explicitly
 - installable CLI
-- Scridos wiki checked into the repo
-- Scridos project with milestones and tasks
+- repo-native wiki or documentation space checked into the repo
+- repo-native project with milestones and tasks
 - north-stars page
 - self-improvement loop
 - tests for core local behavior
 - README with role, boundaries, commands, and safety gates
 - original agent identity image or image prompt that avoids copyright imitation
-- clear Reeves routing/memory entry
+- clear router or orchestrator entry
 - an abstract agent interface so Felix can work on capabilities, not storage layout
-- FOSS Forge health files when the agent may become reusable open-source software
+- open-source health files when the agent may become reusable public software
+
+Felix ships with Eidos-flavored defaults because that is where he was born:
+
+- Scridos for repo-native wiki/tasks
+- FOSS Forge for open-source health
+- Reeves as one example router/orchestrator
+
+Those are adapters, not universal requirements. Other teams should be able to swap in their own wiki, tracker, release standard, and router while keeping the same Felix-shaped health model.
 
 ## Design Principle
 
@@ -65,6 +73,19 @@ Felix follows the FOSS Forge standard for agentic software:
 Felix is public alpha software under the Eidos AGI organization.
 
 The mascot in this repo is original artwork inspired by the idea of a cheerful repair helper. It is not official Disney character art.
+
+## For Everyone
+
+Felix should avoid assuming one person's machine, one organization, one task system, or one router. Public Felix should speak in portable concepts:
+
+- repo, not local folder
+- wiki/docs, not only Scridos
+- tasks, not only one tracker
+- router/orchestrator, not only Reeves
+- open-source health, not only FOSS Forge
+- identity image prompt, not one generated asset
+
+The Eidos setup should remain a working reference implementation, not a cage.
 
 ## Agent Identity Images
 

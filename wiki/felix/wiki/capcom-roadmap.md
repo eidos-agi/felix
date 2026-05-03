@@ -14,5 +14,5 @@ Core requirements:
 - respect quiet hours and attention policy
 - escalate when acknowledgement is missing
 - track acknowledgement and resolution
-- route from Reeves tasks and projects
+- route from the configured task/project system
 - log contact attempts without creating unnecessary sensitive records

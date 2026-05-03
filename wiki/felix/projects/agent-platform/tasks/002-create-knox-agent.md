@@ -10,5 +10,4 @@ milestone: 002-knox-capcom
 
 Use Felix standards to create Knox as the dedicated secrets/access agent.
 
-Done means Knox has private repo, CLI, Scridos wiki, project, milestones, tasks, tests, install, Reeves route memory, and pushed GitHub remote.
-
+Done means Knox has explicit repo visibility, CLI, wiki/docs, project, milestones, tasks, tests, install, router entry, and pushed GitHub remote.

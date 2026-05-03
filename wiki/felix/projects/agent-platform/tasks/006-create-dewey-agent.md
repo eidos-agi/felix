@@ -10,7 +10,7 @@ milestone: 002-knox-capcom
 
 Use Felix standards to create Dewey as the AI librarian for local indexed context retrieval and token-cost reduction.
 
-Done means Dewey has private repo, CLI, Scridos wiki, project, milestones, tasks, tests, install, Reeves route memory, and pushed GitHub remote.
+Done means Dewey has explicit repo visibility, CLI, wiki/docs, project, milestones, tasks, tests, install, router entry, and pushed GitHub remote.
 
 The first study target is Code Context Engine:
 

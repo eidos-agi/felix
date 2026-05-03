@@ -18,13 +18,13 @@ The useful idea from Yoneda is not decorative category theory. It is the discipl
 - inspect tests
 - install or repair the command
 - explain boundaries
-- route from Reeves
+- route from the configured router/orchestrator
 
 Felix can then compose checks and repairs once over the abstract agent interface, and lower those operations into each concrete repo shape.
 
 ## Why This Matters
 
-Without this layer, Felix will become a bundle of one-off scripts for Reeves, Leinad, Scry, Surfari, Knox, and Capcom.
+Without this layer, Felix will become a bundle of one-off scripts for whichever agents happened to exist first.
 
 With this layer, Felix can say:
 

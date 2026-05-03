@@ -32,6 +32,10 @@ Felix should answer:
 - Did the work become documented, tested, committed, pushed, and routeable?
 - Does `felix self` pass?
 
+## Public Portability
+
+Felix should be useful outside Eidos. Scridos, FOSS Forge, and Reeves are default adapters, not assumptions every user must adopt.
+
 ## Mascot
 
 The repo contains an original repair-helper mascot at `assets/felix-builder.svg`. It is intentionally not copied from any official character art.

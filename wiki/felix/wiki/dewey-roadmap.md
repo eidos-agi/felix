@@ -23,13 +23,13 @@ The name is Dewey because the agent is about library science: classification, sh
 - measure input-token savings where possible
 - detect stale indexes and prompt refresh
 - expose simple CLI commands around the work, not storage internals
-- integrate with Felix audits and Reeves routing
+- integrate with Felix audits and the configured router/orchestrator
 
 ## Boundary
 
 Dewey is not a general assistant. Dewey finds, indexes, classifies, and serves context.
 
-Felix builds and maintains Dewey. Reeves routes personal work to Dewey when local context retrieval is the job. Leinad challenges whether Dewey's retrieved context is enough proof.
+Felix builds and maintains Dewey. The configured router sends local-context retrieval work to Dewey. A review agent can challenge whether Dewey's retrieved context is enough proof.
 
 ## Initial CLI Shape
 
