@@ -55,6 +55,7 @@ def test_standards_require_wiki_and_tasks():
     assert "North Star goal-orientation" in text
     assert "brand-safety scan" in text
     assert "pre-scaffold interview" in text
+    assert "setup-first discipline" in text
 
 
 def test_roadmap_prioritizes_knox_then_capcom():
@@ -79,6 +80,7 @@ def test_scaffold_plan_specializes_knox_and_capcom():
     assert "Code Context Engine" in scaffold_plan("dewey")
     assert "agentic-context" in scaffold_plan("knox")
     assert "felix interview knox" in scaffold_plan("knox")
+    assert "highest-leverage decision" in scaffold_plan("knox")
     assert "choose the agent topology" in scaffold_plan("knox")
     assert "choose the knowledge home" in scaffold_plan("knox")
     assert "choose the run mode" in scaffold_plan("knox")
@@ -141,6 +143,8 @@ def test_agent_interview_names_role_boundary_and_overlap():
 
     assert "Felix agent interview: Sage" in text
     assert "Do not scaffold yet" in text
+    assert "Setup principle" in text
+    assert "highest-leverage decision" in text
     assert "Role boundary" in text
     assert "What topology fits this agent" in text
     assert "Where do durable knowledge, task execution, live state, and learned facts belong" in text

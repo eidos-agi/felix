@@ -8,6 +8,7 @@ tags: [felix, standards, agents]
 Every agent Felix creates or maintains should have:
 
 - public or private GitHub repo, chosen explicitly
+- setup-first discipline: agent setup is the highest-leverage decision in the stack
 - runnable CLI with an explicit run mode: source checkout, editable install, packaged install, or project-local invocation
 - explicit knowledge home: repo-native wiki/docs, central wiki section, or parent-project docs
 - explicit task home: repo-native task list, central project/task system, or parent-project task list
@@ -48,6 +49,7 @@ felix interview <agent-name> --purpose "<brief role>"
 
 The interview must establish:
 
+- the setup theory: ontology, autonomy boundary, coupling, memory substrate, source-of-truth topology, run mode, and proof loop before files
 - the human role this agent compiles
 - what the agent owns and what it must not own
 - which existing agents may already cover the responsibility

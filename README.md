@@ -47,6 +47,7 @@ Felix builds and maintains agents. It does not become the operating system, the 
 Every agent Felix creates should have:
 
 - public or private repository visibility chosen explicitly
+- setup-first discipline: agent setup is the highest-leverage decision in the stack
 - runnable CLI with an explicit run mode: source checkout, editable install, packaged install, or project-local invocation
 - explicit knowledge home: repo-native wiki/docs, central wiki section, or parent-project docs
 - explicit task home: repo-native task list, central project/task system, or parent-project task list
@@ -95,6 +96,8 @@ felix interview sage --purpose "Sage Intacct maintenance CLI"
 The interview makes the user define the human role being compiled into an agent, what the agent may decide, what it must not own, what existing agents it may overlap, which methods and constraints apply, and what proof shows the new agent is useful rather than duplicative.
 
 The interview is universal. It is not a Sage-specific workflow; Sage is only one example of turning a repeated maintenance job into a CLI-shaped agent. See [`examples/interviews`](examples/interviews) for different agent types.
+
+The setup process is the highest-leverage decision in the stack. This is where Felix and the human choose the agent's ontology, autonomy boundary, coupling, memory substrate, source-of-truth topology, run mode, and proof loop. Great downstream behavior flows from getting those initial abstractions right; later fixes often compensate for bad setup.
 
 Felix should also think like an organization designer without forcing every agent into an org chart. Some agents are free agents, some are specialists, some are embedded tools, and some are formal roles inside a larger agent organization. The interview should identify the topology first, then decide ownership, handoffs, repo shape, knowledge home, task home, live-state owner, run mode, and proof. If the role has its own memory, tasks, docs, runnable CLI surface, and self-improvement loop, Felix should prefer a dedicated repo. Embedded tools are for narrow project diagnostics, not full agents.
 

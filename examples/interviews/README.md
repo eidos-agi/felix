@@ -10,6 +10,7 @@ felix interview <agent-name> --purpose "<brief responsibility>"
 
 The interview should establish:
 
+- the setup theory before files: ontology, autonomy boundary, coupling, memory substrate, source-of-truth topology, run mode, and proof loop
 - what human role is being compiled into an agent
 - what the agent may decide
 - what the agent must not own

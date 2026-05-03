@@ -150,6 +150,7 @@ AGENTS: tuple[AgentSpec, ...] = (
 
 STANDARD_AGENT_REQUIREMENTS = (
     "public or private repository visibility chosen explicitly",
+    "setup-first discipline: agent setup is the highest-leverage decision in the stack",
     "runnable CLI with an explicit run mode: source checkout, editable install, packaged install, or project-local invocation",
     "explicit knowledge home: repo-native wiki/docs, central wiki section, or parent-project docs",
     "explicit task home: repo-native task list, central project/task system, or parent-project task list",
@@ -258,6 +259,9 @@ def render_agent_interview(name: str, purpose: str = "") -> str:
         f"Felix agent interview: {title}",
         "",
         "Do not scaffold yet unless these answers are clear.",
+        "",
+        "Setup principle",
+        "Agent setup is the highest-leverage decision in the stack. Choose ontology, autonomy boundary, coupling, memory substrate, source-of-truth topology, run mode, and proof loop consciously before writing files.",
         "",
         "Role boundary",
         "1. What job would a competent human own here?",
@@ -609,6 +613,7 @@ def scaffold_plan(name: str) -> str:
     lines = [
         f"Scaffold plan for {agent_name}",
         f"- run `felix interview {agent_name}` before writing files",
+        "- treat setup as the highest-leverage decision: decide ontology, autonomy, coupling, memory, source-of-truth, run mode, and proof before writing files",
         f"- create a canonical repo for {agent_name} unless the interview proves it is only a narrow embedded project tool",
         "- choose the agent topology: free agent, specialist, embedded tool, org-chart role, router, auditor, librarian, communicator, or operator",
         "- if it has relationships, document requester, owner, peers, downstream consumers, and escalation path",
