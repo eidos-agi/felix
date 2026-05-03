@@ -4,6 +4,7 @@ import argparse
 
 from .core import (
     agentic_context_source,
+    render_agent_template,
     doctor,
     fetch_agentic_context,
     find_agent,
@@ -30,6 +31,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("standards", help="show standard requirements for every agent")
     subparsers.add_parser("agentic-context", help="fetch the latest agentic intelligence context gist")
     subparsers.add_parser("agentic-context-source", help="show the live agentic intelligence context URL")
+    subparsers.add_parser("agent-template", help="show the reusable Python agent CLI template")
 
     agents_parser = subparsers.add_parser("agents", help="inspect known agents")
     agents_sub = agents_parser.add_subparsers(dest="agents_command", required=True)
@@ -73,6 +75,10 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "agentic-context-source":
         print(agentic_context_source())
+        return 0
+
+    if args.command == "agent-template":
+        print(render_agent_template())
         return 0
 
     if args.command == "agents":

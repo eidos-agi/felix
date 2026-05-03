@@ -13,6 +13,7 @@ The format is based on Keep a Changelog, and this project follows Semantic Versi
 - Public credits for Karpathy's `llm-wiki` gist and `Pratiyush/llm-wiki`.
 - Live `agentic-context` command and standard for fetching Daniel Shanklin's Agentic Intelligence gist before the LLM thinks.
 - Agent command standard for `have / want / don't want` orientation and tool-output reconciliation.
+- Reusable Python agent CLI template with `agentic-context`, `agentic-context-source`, and `agent` commands.
 - Registered Knox, Capcom, and Dewey as planned agents.
 - FOSS Forge health files and self-documentation.
 - Original Felix builder mascot.

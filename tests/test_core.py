@@ -1,5 +1,6 @@
 from felix.core import (
     agentic_context_source,
+    agent_template_files,
     check_commands,
     doctor,
     find_agent,
@@ -48,6 +49,7 @@ def test_roadmap_prioritizes_knox_then_capcom():
     assert "agent identity image prompts" in text
     assert "agentic intelligence gist" in text
     assert "have/want/don't-want" in text
+    assert "Python agent CLI template" in text
 
 
 def test_scaffold_plan_specializes_knox_and_capcom():
@@ -57,6 +59,7 @@ def test_scaffold_plan_specializes_knox_and_capcom():
     assert "agentic-context" in scaffold_plan("knox")
     assert "have, want, and don't want" in scaffold_plan("knox")
     assert "evidence to reconcile" in scaffold_plan("knox")
+    assert "templates/python-agent-cli" in scaffold_plan("knox")
 
 
 def test_doctor_reports_wiki():
@@ -84,3 +87,17 @@ def test_agentic_context_source_is_live_gist_url():
     source = agentic_context_source()
 
     assert "gist.githubusercontent.com/dshanklin-bv/0ea9eae3845566a255f4fe9e0bf21590/raw/agentic_intelligence.md" in source
+
+
+def test_agent_template_files_exist_and_encode_agent_shape():
+    files = agent_template_files()
+    text = "\n".join(path.read_text(encoding="utf-8") for path in files)
+
+    assert all(path.exists() for path in files)
+    assert "agentic-context" in text
+    assert "agentic-context-source" in text
+    assert "agent" in text
+    assert "Have:" in text
+    assert "Want:" in text
+    assert "Don't want:" in text
+    assert "evidence to reconcile" in text

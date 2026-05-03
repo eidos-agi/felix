@@ -36,6 +36,14 @@ Agent-facing commands should also apply the gist's orientation model:
 
 Tool outputs should be presented as evidence for the LLM to reconcile, not verdicts the CLI expects the LLM to parrot.
 
+Felix's reusable Python template lives at:
+
+```text
+templates/python-agent-cli/
+```
+
+Generated CLIs should copy or adapt that template until Felix ships a richer scaffold command.
+
 Source:
 
 ```text

@@ -29,6 +29,7 @@ felix agents show knox
 felix standards
 felix agentic-context
 felix agentic-context-source
+felix agent-template
 felix roadmap
 felix scaffold-plan capcom
 felix scaffold-plan dewey
@@ -171,6 +172,14 @@ Credit also goes to [`Pratiyush/llm-wiki`](https://github.com/Pratiyush/llm-wiki
 Felix also treats Daniel Shanklin's [Agentic Intelligence gist](https://gist.github.com/dshanklin-bv/0ea9eae3845566a255f4fe9e0bf21590) as live context that Felix-built CLIs should fetch before the LLM thinks. Use `felix agentic-context-source` to see the unpinned raw URL and `felix agentic-context` to fetch the latest version.
 
 The same standard should shape agent commands. A Felix-built CLI should ask for the current `have`, the desired `want`, and the relevant `don't want`, then treat tool outputs as evidence for the LLM to reconcile rather than verdicts to repeat.
+
+Felix includes a reusable Python CLI template for this pattern:
+
+```bash
+felix agent-template
+```
+
+The template lives in `templates/python-agent-cli/` and provides `agentic-context`, `agentic-context-source`, and `agent` commands for generated CLIs.
 
 ## Self-Documentation
 

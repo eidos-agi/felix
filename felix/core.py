@@ -10,6 +10,7 @@ import urllib.request
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WIKI_ROOT = REPO_ROOT / "wiki" / "felix"
+AGENT_TEMPLATE_ROOT = REPO_ROOT / "templates" / "python-agent-cli"
 AGENTIC_INTELLIGENCE_CONTEXT_URL = (
     "https://gist.githubusercontent.com/dshanklin-bv/"
     "0ea9eae3845566a255f4fe9e0bf21590/raw/agentic_intelligence.md"
@@ -139,6 +140,35 @@ def fetch_agentic_context(timeout_seconds: float = 10.0) -> str:
         raise RuntimeError(f"Could not fetch agentic intelligence context from {AGENTIC_INTELLIGENCE_CONTEXT_URL}: {exc}") from exc
 
 
+def agent_template_files() -> tuple[Path, ...]:
+    return (
+        AGENT_TEMPLATE_ROOT / "agentic_context.py",
+        AGENT_TEMPLATE_ROOT / "cli.py",
+    )
+
+
+def render_agent_template() -> str:
+    lines = [
+        "Felix Python agent CLI template",
+        f"template: {AGENT_TEMPLATE_ROOT}",
+        "",
+        "Copy these files into the generated CLI package:",
+    ]
+    for path in agent_template_files():
+        lines.append(f"- {path}")
+    lines.extend(
+        [
+            "",
+            "The template provides:",
+            "- agentic-context: fetches the latest live Agentic Intelligence gist",
+            "- agentic-context-source: prints the unpinned raw gist URL",
+            "- agent: frames a request as have / want / don't want, evidence, judgment, first action, and done proof",
+            "- tool-output stance: evidence to reconcile, not verdicts to parrot",
+        ]
+    )
+    return "\n".join(lines)
+
+
 def roadmap() -> str:
     return "\n".join(
         [
@@ -152,6 +182,7 @@ def roadmap() -> str:
             "6a. For user-specific private maintainer instances, install into the user's personal repo area.",
             "6b. Add an agentic-context command or equivalent startup hook that fetches the latest agentic intelligence gist before the LLM thinks.",
             "6c. Make agent commands ask for have/want/don't-want and reconcile tool outputs as evidence.",
+            "6d. Use the Python agent CLI template for generated CLIs until a richer scaffold command exists.",
             "7. Add agent identity image prompts to scaffolds so new agents have original visual identity.",
             "8. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
             "9. Add an agent adapter layer so checks and repairs compose across repo/wiki/task layouts.",
@@ -228,6 +259,7 @@ def scaffold_plan(name: str) -> str:
         "- add an `agentic-context` CLI command or startup hook that fetches the latest agentic intelligence gist",
         "- add agent command framing around have, want, and don't want",
         "- make tool outputs evidence to reconcile, not verdicts to parrot",
+        f"- copy the Python agent CLI template from {AGENT_TEMPLATE_ROOT}",
         "- install editable CLI and verify `--help`",
         "- teach the chosen router/orchestrator how to route to it",
         "- commit and push",
