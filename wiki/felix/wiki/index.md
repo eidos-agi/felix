@@ -7,7 +7,7 @@ status: active
 
 # Felix Wiki
 
-Felix is the Fix-it Felix agent for building and maintaining agent ecosystems.
+Felix is the Felix agent for building and maintaining agent ecosystems.
 
 Felix owns:
 

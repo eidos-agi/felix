@@ -23,7 +23,7 @@ from .core import (
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="felix",
-        description="Fix-it Felix: build and maintain agent ecosystems.",
+        description="Felix: build and maintain agent ecosystems.",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 

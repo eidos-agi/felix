@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "felix"
 version = "0.1.0"
-description = "Fix-it Felix for building and maintaining agent ecosystems."
+description = "Felix for building and maintaining agent ecosystems."
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}

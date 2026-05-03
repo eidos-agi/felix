@@ -1,6 +1,6 @@
 # CLAUDE.md - Felix
 
-Felix is the Fix-it Felix agent-builder and maintainer for agent ecosystems.
+Felix is the Felix agent-builder and maintainer for agent ecosystems.
 
 ## Start Here
 

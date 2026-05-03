@@ -18,6 +18,10 @@ from felix.core import (
 )
 
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+FORBIDDEN_BRAND_REFERENCES = ("fix-it", "fix it", "fixit", "wreck-it", "wreck it", "ralph", "disney", "felix jr")
+
+
 def test_agent_registry_includes_planned_agents():
     names = {agent.name for agent in list_agents()}
 
@@ -167,3 +171,18 @@ def test_scaffold_files_normalize_names(tmp_path):
     paths = {file.path for file in files}
 
     assert tmp_path / "demo-agent" / "demo_agent" / "cli.py" in paths
+
+
+def test_public_repo_avoids_protected_felix_references():
+    ignored_parts = {".git", ".pytest_cache", ".ruff_cache", ".venv", "felix.egg-info", "__pycache__"}
+    files = [
+        path
+        for path in REPO_ROOT.rglob("*")
+        if path.is_file()
+        and not any(part in ignored_parts for part in path.parts)
+        and path != Path(__file__)
+        and path.suffix in {"", ".md", ".py", ".toml", ".txt"}
+    ]
+    text = "\n".join(path.read_text(encoding="utf-8").lower() for path in files)
+
+    assert not any(reference in text for reference in FORBIDDEN_BRAND_REFERENCES)
