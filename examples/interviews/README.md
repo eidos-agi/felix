@@ -19,6 +19,7 @@ The interview should establish:
 - whether it deserves its own repo or should stay a narrow embedded project tool
 - where code, durable knowledge, task execution, live state, and learned facts should live
 - whether the CLI should run from source checkout, editable install, packaged install, or parent-project invocation
+- what options the agent considered, what it recommends, what the human chose, and what proof would revisit the decision
 - what `doctor`, `check`, probes, wiki memory, task memory, and safety gates prove
 - what first CLI verbs make the work executable
 

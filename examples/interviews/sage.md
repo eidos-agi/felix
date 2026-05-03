@@ -37,6 +37,15 @@ Source-of-truth split:
 - execution tasks: either the agent repo task list for implementation work or central project tasks for stakeholder-facing work
 - run mode: source checkout while the agent is learning and committing catalog changes; packaged install only when a stable snapshot is wanted
 
+Decision record:
+
+- agent recommendation: use a dedicated `agent-sage` repo for code and live catalog state, central wiki for durable Sage concepts, and source-checkout run mode while the agent is learning
+- human decision needed: confirm whether Greenmark wants Sage knowledge in the central wiki and whether implementation tasks stay in `agent-sage` or the central project tracker
+- coupling risk: duplicated object lists can drift if data pipelines and `agent-sage` both own Sage object status
+- drift mitigation: when the catalog changes, update the data pipeline list and central wiki claim in the same work cycle
+- reversibility: if `agent-sage` remains too small, it can be folded back into a parent repo; if it grows, central docs keep it discoverable
+- proof: a Sage bisection run updates catalog state, docs, and any downstream pipeline list without another agent guessing where truth lives
+
 Expected first verbs:
 
 - `sage doctor`

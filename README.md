@@ -51,6 +51,7 @@ Every agent Felix creates should have:
 - explicit knowledge home: repo-native wiki/docs, central wiki section, or parent-project docs
 - explicit task home: repo-native task list, central project/task system, or parent-project task list
 - explicit live-state owner for catalogs, probes, learned facts, and operational status
+- decision records for topology, repo, knowledge, tasks, live state, run mode, coupling, drift, reversibility, and proof
 - north-stars page
 - self-improvement loop
 - tests for core local behavior
@@ -100,6 +101,8 @@ Felix should also think like an organization designer without forcing every agen
 Dedicated repo does not automatically mean dedicated wiki. A domain agent may own code and live operational state in its repo while maintaining durable conceptual knowledge in a central wiki used by the larger organization. Felix should make that source-of-truth split explicit instead of blindly generating a second wiki that can drift.
 
 Likewise, runnable does not always mean globally installed. Some agents learn by editing their own source checkout: probes update catalogs, catalog updates get committed, and the working copy is the substrate. For those agents, run-from-source may be the healthiest mode. Packaged installs are better when users need stable snapshots.
+
+These are decisions, not fields to fill mechanically. Felix should surface options, make a conscious recommendation, explain coupling and drift risks, let the human choose or override, and record what proof would show the decision was good after real use. The agent contributes design judgment; the human contributes goals, constraints, appetite for coupling, and final authority.
 
 ## Design Principle
 
@@ -243,6 +246,8 @@ felix scaffold surfari --write
 ```
 
 The scaffold includes root `AGENTS.md`, Python package and CLI files, tests, default wiki pages, a task skeleton, and an identity image prompt. If the interview selects a central wiki or parent-project task home, adapt or delete the default wiki/task skeleton and link the canonical homes from the README and AGENTS.md.
+
+Scaffold output should preserve the decision trail. For topology, repo home, knowledge home, task home, live-state owner, and run mode, record considered options, agent recommendation, human choice, coupling risk, drift risk, reversibility, migration path, ownership, and proof.
 
 ## Brand Safety
 

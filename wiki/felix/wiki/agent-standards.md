@@ -12,6 +12,7 @@ Every agent Felix creates or maintains should have:
 - explicit knowledge home: repo-native wiki/docs, central wiki section, or parent-project docs
 - explicit task home: repo-native task list, central project/task system, or parent-project task list
 - explicit live-state owner for catalogs, probes, learned facts, and operational status
+- decision records for topology, repo, knowledge, tasks, live state, run mode, coupling, drift, reversibility, and proof
 - north-stars page
 - self-improvement loop page
 - tests for core local behavior
@@ -55,6 +56,7 @@ The interview must establish:
 - whether the role deserves its own repo or should remain a narrow embedded tool
 - where code, durable knowledge, task execution, live state, and learned facts should live
 - whether the CLI should run from source, editable install, packaged install, or parent-project invocation
+- what options the agent considered, what it recommends, what the human chose, and what coupling/drift/reversibility risks follow
 - the user's methods, constraints, and safety gates
 - what `doctor`, `check`, probes, catalogs, or diagnostics should exist
 - what proof shows this agent is useful and not duplicative
@@ -90,6 +92,15 @@ Generated CLIs should copy or adapt that template. Use `felix scaffold <name>` f
 The scaffold command writes only when passed `--write`; by default it lists the files it would create.
 
 The scaffold's default wiki and task files are defaults, not doctrine. If the interview chooses a central wiki or parent-project task home, the generated repo should link that canonical home and remove or clearly subordinate any local duplicate.
+
+Every major scaffold choice should be captured as a decision record:
+
+- decision: topology, repo home, knowledge home, task home, live-state owner, run mode, or routing
+- options considered
+- agent recommendation and reasoning
+- human choice or override
+- coupling, drift, reversibility, migration, and ownership risks
+- proof to revisit after real use
 
 ## Agents Wakeup
 
