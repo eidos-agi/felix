@@ -5,7 +5,7 @@ tags: [felix, capcom, roadmap]
 
 # Capcom Roadmap
 
-Capcom is the mission-control communicator that knows how to reach Daniel about important things.
+Capcom is the mission-control communicator that knows how to reach the operator about important things.
 
 Core requirements:
 
@@ -16,4 +16,3 @@ Core requirements:
 - track acknowledgement and resolution
 - route from Reeves tasks and projects
 - log contact attempts without creating unnecessary sensitive records
-

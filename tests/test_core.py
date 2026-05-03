@@ -1,4 +1,4 @@
-from felix.core import doctor, find_agent, list_agents, roadmap, scaffold_plan, standards
+from felix.core import doctor, find_agent, list_agents, render_self_checks, roadmap, scaffold_plan, self_checks, standards
 
 
 def test_agent_registry_includes_planned_agents():
@@ -20,6 +20,7 @@ def test_standards_require_wiki_and_tasks():
     assert "Scridos wiki" in text
     assert "task list" in text
     assert "abstract agent interface" in text
+    assert "FOSS Forge" in text
 
 
 def test_roadmap_prioritizes_knox_then_capcom():
@@ -38,3 +39,10 @@ def test_scaffold_plan_specializes_knox_and_capcom():
 
 def test_doctor_reports_wiki():
     assert any(line.startswith("wiki:") for line in doctor())
+
+
+def test_self_checks_cover_foss_and_mascot():
+    names = {check.name for check in self_checks()}
+
+    assert {"license", "changelog", "contributing", "security", "mascot", "task_list"} <= names
+    assert "Felix self-audit:" in render_self_checks()

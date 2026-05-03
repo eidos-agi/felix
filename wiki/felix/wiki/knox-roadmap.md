@@ -11,8 +11,7 @@ Core requirements:
 
 - maintain secret inventory and vault references
 - document login and recovery playbooks
-- support Touch ID backed unlock on Daniel's Mac
+- support local biometric unlock where the operating system provides it
 - avoid raw secrets in Git, Scridos, Reeves memory, logs, and chat
 - require explicit confirmation before reveal, copy, or use actions
 - track rotation and proof-of-access tasks
-

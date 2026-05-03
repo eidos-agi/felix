@@ -8,7 +8,7 @@ status: active
 
 # Dewey Roadmap
 
-Dewey is the planned AI librarian for Daniel's local context.
+Dewey is the planned AI librarian for local context.
 
 The job is to stop expensive agents from rereading huge files and old context when they only need precise, source-backed slices.
 

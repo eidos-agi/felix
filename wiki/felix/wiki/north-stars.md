@@ -19,5 +19,4 @@ When an agent is broken, Felix should diagnose the smallest concrete fix and lea
 
 ## Ship The Standard
 
-Every personal agent should have a CLI, private repo, Scridos wiki, task list, tests, and a Reeves routing entry.
-
+Every agent should have a CLI, explicit repo visibility, Scridos wiki, task list, tests, and a routing entry.

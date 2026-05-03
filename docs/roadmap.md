@@ -3,9 +3,11 @@
 ## Phase 1: Felix Exists
 
 - Create installable `felix` CLI.
-- Track the personal-agent registry.
+- Track the agent registry.
 - Define the standard shape for every agent.
 - Maintain a Scridos wiki and task list for Felix itself.
+- Live under `~/repos-eidos-agi/felix`.
+- Carry FOSS Forge health files and self-documentation.
 
 ## Phase 2: Planned Agents
 

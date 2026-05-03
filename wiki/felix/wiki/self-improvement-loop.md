@@ -9,7 +9,7 @@ Felix improves by turning repeated agent-building pain into standards, scaffolds
 
 Signals:
 
-- Daniel asks for the same agent setup twice
+- someone asks for the same agent setup twice
 - a repo lacks a wiki or task list
 - a CLI is not installed cleanly
 - a repo is not private or not pushed
@@ -17,4 +17,3 @@ Signals:
 - boundaries are unclear
 
 When Felix learns, it should update the wiki, task list, and CLI behavior.
-

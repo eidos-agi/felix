@@ -7,7 +7,7 @@ status: active
 
 # Felix Wiki
 
-Felix is the Fix-it Felix agent for Daniel's personal-agent system.
+Felix is the Fix-it Felix agent for building and maintaining agent ecosystems.
 
 Felix owns:
 
@@ -17,13 +17,16 @@ Felix owns:
 - repair playbooks
 - roadmaps for Knox, Capcom, and future agents
 - ensuring every agent has a repo, CLI, wiki, project, milestones, tasks, tests, install path, and GitHub remote
+- keeping Felix itself documented, tested, and aligned with FOSS Forge principles
 
 ## Core Pages
 
 - [[north-stars]] -- constraints for agent building and maintenance
 - [[agent-standards]] -- standard requirements for every agent
-- [[personal-agent-map]] -- current and planned personal agents
+- [[agent-map]] -- reference and registered agents
 - [[yoneda-agent-interface]] -- capability-first abstraction for maintaining agents
+- [[felix-self]] -- Felix's identity, boundaries, mascot, and canonical home
+- [[foss-forge-alignment]] -- how Felix follows FOSS Forge principles
 - [[knox-roadmap]] -- secrets/access agent roadmap
 - [[capcom-roadmap]] -- mission-control communicator roadmap
 - [[dewey-roadmap]] -- AI librarian roadmap for local indexed context retrieval

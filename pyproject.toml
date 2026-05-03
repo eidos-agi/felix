@@ -5,9 +5,31 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "felix"
 version = "0.1.0"
-description = "Fix-it Felix for Daniel's personal agent system."
+description = "Fix-it Felix for building and maintaining agent ecosystems."
+readme = "README.md"
 requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Eidos AGI"}]
+keywords = ["agents", "cli", "agentic-software", "eidos", "scridos"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development",
+]
 dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+
+[project.urls]
+Homepage = "https://github.com/eidos-agi/felix"
+Repository = "https://github.com/eidos-agi/felix"
+Issues = "https://github.com/eidos-agi/felix/issues"
 
 [project.scripts]
 felix = "felix.cli:main"
@@ -18,4 +40,3 @@ include = ["felix*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-

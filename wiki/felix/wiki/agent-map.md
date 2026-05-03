@@ -1,12 +1,12 @@
 ---
-title: Personal Agent Map
+title: Agent Map
 tags: [felix, agents, map]
 ---
 
-# Personal Agent Map
+# Agent Map
 
-- Reeves: personal OS and routing front door.
-- Leinad: DanielSteers adversarial judgment companion.
+- Reeves: operating-system and routing front door.
+- Leinad: adversarial judgment companion.
 - Scry: scheduled transcript judgment miner.
 - Surfari: learning web-surfing consultant.
 - Knox: registered secrets and access agent; repo not shipped yet.
