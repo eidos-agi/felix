@@ -94,7 +94,7 @@ STANDARD_AGENT_REQUIREMENTS = (
     "self-improvement loop page",
     "tests for the core local behavior",
     "README with role, boundaries, commands, and safety gates",
-    "original agent identity image or image prompt that avoids copyright imitation",
+    "original agent identity image or image prompt that avoids copyright imitation and includes the visible agent name",
     "open-source health files when the agent may become reusable public software",
     "router or orchestrator entry",
     "abstract agent interface so Felix works on capabilities, not storage layout",

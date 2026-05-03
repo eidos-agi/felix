@@ -22,6 +22,7 @@ def test_standards_require_wiki_and_tasks():
     assert "abstract agent interface" in text
     assert "open-source health files" in text
     assert "original agent identity image" in text
+    assert "visible agent name" in text
 
 
 def test_roadmap_prioritizes_knox_then_capcom():

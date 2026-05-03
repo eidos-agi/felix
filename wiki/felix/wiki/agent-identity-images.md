@@ -19,12 +19,18 @@ Each agent scaffold should include:
 - optional generated image at `assets/<agent>-mascot.svg` or `assets/<agent>-mascot.png`
 - README placement near the title
 - explicit copyright-safety language
+- visible agent name or wordmark
 
 ## Prompt Rule
 
 Describe the job, metaphor, personality, and composition. Do not request copyrighted characters, brand mascots, living artist styles, or near-copies of protected designs.
 
+The prompt must explicitly request the exact agent name as readable visible text. A model may otherwise create a role image without naming the agent.
+
+## Generated Text Check
+
+After generation, verify that the agent name is present, spelled correctly, and readable. If not, regenerate or edit the image before using it in the README.
+
 ## Counter-Arguments and Gaps
 
 Agent art should not block useful software. If image generation is unavailable, ship the prompt first and let the generated asset come later.
-
