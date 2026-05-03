@@ -109,6 +109,8 @@ The public/private rule is simple:
 
 A private instance should still use Felix standards: CLI, wiki/docs, tasks, tests, explicit repo visibility, identity image prompt, and router/orchestrator entry.
 
+For a user-specific private instance, install into that user's personal repo area. It can be named `felix` in that private namespace; public Felix remains the upstream project for everyone else.
+
 ## Agent Identity Images
 
 Felix encourages every agent to have a small visual identity kit:

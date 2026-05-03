@@ -60,3 +60,5 @@ The private instance may maintain a public product, a private agent ecosystem, o
 - upstream candidate notes
 
 The public repo should only receive generalized improvements.
+
+For a user-specific private maintainer instance, install into that user's personal repo area. The private repo may be named `felix` inside that namespace. Public Felix remains the reusable upstream project for everyone else; the user's private `felix` repo owns local context and may own the installed `felix` command on that user's machine.

@@ -68,4 +68,4 @@ def test_check_commands_capture_maintenance_loop():
     assert "python -m pytest -q" in commands
     assert "ruff check ." in commands
     assert "scridos lint wiki/felix" in commands
-    assert "felix self" in commands
+    assert "python -m felix.cli self" in commands

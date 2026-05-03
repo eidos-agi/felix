@@ -128,6 +128,7 @@ def roadmap() -> str:
             "4. Scaffold Dewey as the AI librarian for local indexed context retrieval and token-cost reduction.",
             "5. Add `felix audit` to verify each agent has CLI, wiki/docs, tasks, tests, install, git remote.",
             "6. Add `felix scaffold agent-name` to create the standard repo skeleton.",
+            "6a. For user-specific private maintainer instances, install into the user's personal repo area.",
             "7. Add agent identity image prompts to scaffolds so new agents have original visual identity.",
             "8. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
             "9. Add an agent adapter layer so checks and repairs compose across repo/wiki/task layouts.",
@@ -150,7 +151,7 @@ def check_commands() -> tuple[tuple[str, ...], ...]:
         ("python", "-m", "pytest", "-q"),
         ("ruff", "check", "."),
         ("scridos", "lint", "wiki/felix"),
-        ("felix", "self"),
+        ("python", "-m", "felix.cli", "self"),
     )
 
 

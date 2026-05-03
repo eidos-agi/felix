@@ -13,6 +13,8 @@ A user, team, or product can create a private maintainer instance of Felix.
 
 The private instance must declare its scope. It might maintain a public product, a private agent ecosystem, or one internal agent family.
 
+For a user-specific instance, prefer installing into that user's personal repo area. The private repo may be named `felix` inside that namespace. The namespace, visibility, and declared scope distinguish it from public Felix.
+
 ## Public Felix
 
 - generic standards
