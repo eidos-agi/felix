@@ -60,6 +60,9 @@ Every agent Felix creates should have:
 - clear router or orchestrator entry
 - an abstract agent interface so Felix can work on capabilities, not storage layout
 - pre-scaffold interview covering role boundary, constraints, overlap, and proof
+- agent topology: free agent, specialist, embedded tool, org-chart role, router, auditor, librarian, communicator, or operator
+- relationship placement when needed: requester, owner, peers, downstream consumers, and escalation path
+- repo/lifecycle decision: embedded tool only when narrow; dedicated repo when the agent owns durable memory, tasks, docs, installability, or self-improvement
 - Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
 - memory as thinking substrate, not an optional tool call
 - tools as instruments for world access, not behavior modifiers or authorities
@@ -90,6 +93,8 @@ felix interview sage --purpose "Sage Intacct maintenance CLI"
 The interview makes the user define the human role being compiled into an agent, what the agent may decide, what it must not own, what existing agents it may overlap, which methods and constraints apply, and what proof shows the new agent is useful rather than duplicative.
 
 The interview is universal. It is not a Sage-specific workflow; Sage is only one example of turning a repeated maintenance job into a CLI-shaped agent. See [`examples/interviews`](examples/interviews) for different agent types.
+
+Felix should also think like an organization designer without forcing every agent into an org chart. Some agents are free agents, some are specialists, some are embedded tools, and some are formal roles inside a larger agent organization. The interview should identify the topology first, then decide ownership, handoffs, repo shape, and proof. If the role has its own memory, tasks, docs, installability, and self-improvement loop, Felix should prefer a dedicated repo. Embedded tools are for narrow project diagnostics, not full agents.
 
 ## Design Principle
 

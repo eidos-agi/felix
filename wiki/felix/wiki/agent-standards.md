@@ -21,6 +21,9 @@ Every agent Felix creates or maintains should have:
 - open-source health files when the agent may become reusable public software
 - router or orchestrator entry
 - pre-scaffold interview covering role boundary, constraints, overlap, and proof
+- agent topology covering whether the agent is a free agent, specialist, embedded tool, org-chart role, router, auditor, librarian, communicator, or operator
+- relationship placement when needed: requester, owner, peers, downstream consumers, and escalation path
+- dedicated repo when the agent owns durable memory, tasks, docs, installability, or self-improvement; embedded project tool only when the role is narrow and subordinate
 - Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
 - memory as thinking substrate, not an optional tool call
 - tools as instruments for world access, not behavior modifiers or authorities
@@ -46,6 +49,9 @@ The interview must establish:
 - the human role this agent compiles
 - what the agent owns and what it must not own
 - which existing agents may already cover the responsibility
+- which agent topology applies
+- where the agent sits in the agent org chart when that topology applies
+- whether the role deserves its own repo or should remain a narrow embedded tool
 - the user's methods, constraints, and safety gates
 - what `doctor`, `check`, probes, catalogs, or diagnostics should exist
 - what proof shows this agent is useful and not duplicative

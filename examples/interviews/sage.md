@@ -15,6 +15,19 @@ Boundary:
 - owns Sage Intacct diagnostics and object catalog maintenance
 - does not own the warehouse, Dagster deployment, finance policy, or credential vault
 - may produce evidence for another agent or human to act on
+- deserves a dedicated repo if it owns durable Sage memory, tasks, docs, installability, and self-improvement
+- should remain embedded only if it is a narrow diagnostic helper subordinate to one project
+
+Agent topology:
+
+Sage is a specialist maintenance agent. It may sit inside a larger data-agent organization, but it is not automatically a manager or router.
+
+Relationships:
+
+- requesters: data engineering agents and humans investigating Sage failures
+- peers: warehouse, Dagster, vault, and finance agents
+- downstream consumers: data pipelines and maintainers deciding what to enable
+- escalation path: human/Sage admin for permissions, credentials, or licensed module questions
 
 Expected first verbs:
 
@@ -28,4 +41,3 @@ Expected first verbs:
 Done proof:
 
 The CLI can prove which Sage objects pass, fail for permissions, or fail because the object name is wrong without requiring deploy cycles.
-
