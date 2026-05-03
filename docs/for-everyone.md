@@ -62,3 +62,7 @@ The private instance may maintain a public product, a private agent ecosystem, o
 The public repo should only receive generalized improvements.
 
 For a user-specific private maintainer instance, install into that user's personal repo area. The private repo may be named `felix` inside that namespace. Public Felix remains the reusable upstream project for everyone else; the user's private `felix` repo owns local context and may own the installed `felix` command on that user's machine.
+
+## Credits
+
+Felix's wiki/task model owes credit to [Andrej Karpathy's `llm-wiki` gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) and to [`Pratiyush/llm-wiki`](https://github.com/Pratiyush/llm-wiki) for helping make practical search, indexing, and agent-consumable wiki patterns concrete. Scridos grew out of that direction as the Eidos adapter for repo-native wikis, projects, milestones, and tasks.

@@ -29,6 +29,10 @@ Eidos tools should be adapters:
 - FOSS Forge adapter for open-source health
 - Reeves adapter for routing/memory
 
+## Credits
+
+Felix's wiki/task direction owes credit to Andrej Karpathy's `llm-wiki` gist and to `Pratiyush/llm-wiki` for helping surface better search, indexing, and agent-consumable wiki patterns. Those ideas helped shape Scridos as the Eidos adapter for repo-native wikis, projects, milestones, and tasks.
+
 ## Counter-Arguments and Gaps
 
 If Felix becomes too generic, it will stop being useful. The balance is: generic contract, concrete default adapter.

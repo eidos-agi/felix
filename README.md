@@ -157,6 +157,12 @@ Output should feel new, ownable, and suitable for an open-source README.
 - Capcom: mission-control communication.
 - Dewey: AI librarian for local indexed context retrieval and token-cost reduction.
 
+## Acknowledgements
+
+Felix's repo-native wiki/task direction is informed by [Andrej Karpathy's `llm-wiki` gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), especially the pattern of maintaining durable markdown knowledge instead of re-deriving answers from raw context every time.
+
+Credit also goes to [`Pratiyush/llm-wiki`](https://github.com/Pratiyush/llm-wiki) and the broader LLM Wiki implementation wave for surfacing practical search, indexing, and agent-consumable wiki patterns. Those ideas helped clarify the direction that became Scridos, the Eidos package Felix uses as its default adapter for repo-native wikis, projects, milestones, and tasks.
+
 ## Self-Documentation
 
 Felix documents himself in:
