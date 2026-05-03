@@ -27,6 +27,8 @@ felix self
 felix agents list
 felix agents show knox
 felix standards
+felix agentic-context
+felix agentic-context-source
 felix roadmap
 felix scaffold-plan capcom
 felix scaffold-plan dewey
@@ -49,6 +51,7 @@ Every agent Felix creates should have:
 - original agent identity image or image prompt that avoids copyright imitation
 - clear router or orchestrator entry
 - an abstract agent interface so Felix can work on capabilities, not storage layout
+- agentic intelligence context injection that fetches the latest configured gist before the LLM thinks
 - open-source health files when the agent may become reusable public software
 
 Felix ships with Eidos-flavored defaults because that is where he was born:
@@ -162,6 +165,8 @@ Output should feel new, ownable, and suitable for an open-source README.
 Felix's repo-native wiki/task direction is informed by [Andrej Karpathy's `llm-wiki` gist](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), especially the pattern of maintaining durable markdown knowledge instead of re-deriving answers from raw context every time.
 
 Credit also goes to [`Pratiyush/llm-wiki`](https://github.com/Pratiyush/llm-wiki) and the broader LLM Wiki implementation wave for surfacing practical search, indexing, and agent-consumable wiki patterns. Those ideas helped clarify the direction that became Scridos, the Eidos package Felix uses as its default adapter for repo-native wikis, projects, milestones, and tasks.
+
+Felix also treats Daniel Shanklin's [Agentic Intelligence gist](https://gist.github.com/dshanklin-bv/0ea9eae3845566a255f4fe9e0bf21590) as live context that Felix-built CLIs should fetch before the LLM thinks. Use `felix agentic-context-source` to see the unpinned raw URL and `felix agentic-context` to fetch the latest version.
 
 ## Self-Documentation
 

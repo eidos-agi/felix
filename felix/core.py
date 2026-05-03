@@ -4,10 +4,16 @@ from dataclasses import dataclass
 from pathlib import Path
 import shutil
 import subprocess
+import urllib.error
+import urllib.request
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WIKI_ROOT = REPO_ROOT / "wiki" / "felix"
+AGENTIC_INTELLIGENCE_CONTEXT_URL = (
+    "https://gist.githubusercontent.com/dshanklin-bv/"
+    "0ea9eae3845566a255f4fe9e0bf21590/raw/agentic_intelligence.md"
+)
 
 
 @dataclass(frozen=True)
@@ -99,6 +105,7 @@ STANDARD_AGENT_REQUIREMENTS = (
     "open-source health files when the agent may become reusable public software",
     "router or orchestrator entry",
     "abstract agent interface so Felix works on capabilities, not storage layout",
+    "agentic intelligence context injection that fetches the latest configured gist before the LLM thinks",
 )
 
 
@@ -118,6 +125,18 @@ def standards() -> tuple[str, ...]:
     return STANDARD_AGENT_REQUIREMENTS
 
 
+def agentic_context_source() -> str:
+    return AGENTIC_INTELLIGENCE_CONTEXT_URL
+
+
+def fetch_agentic_context(timeout_seconds: float = 10.0) -> str:
+    try:
+        with urllib.request.urlopen(AGENTIC_INTELLIGENCE_CONTEXT_URL, timeout=timeout_seconds) as response:
+            return response.read().decode("utf-8")
+    except (urllib.error.URLError, TimeoutError) as exc:
+        raise RuntimeError(f"Could not fetch agentic intelligence context from {AGENTIC_INTELLIGENCE_CONTEXT_URL}: {exc}") from exc
+
+
 def roadmap() -> str:
     return "\n".join(
         [
@@ -129,6 +148,7 @@ def roadmap() -> str:
             "5. Add `felix audit` to verify each agent has CLI, wiki/docs, tasks, tests, install, git remote.",
             "6. Add `felix scaffold agent-name` to create the standard repo skeleton.",
             "6a. For user-specific private maintainer instances, install into the user's personal repo area.",
+            "6b. Add an agentic-context command or equivalent startup hook that fetches the latest agentic intelligence gist before the LLM thinks.",
             "7. Add agent identity image prompts to scaffolds so new agents have original visual identity.",
             "8. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
             "9. Add an agent adapter layer so checks and repairs compose across repo/wiki/task layouts.",
@@ -202,6 +222,7 @@ def scaffold_plan(name: str) -> str:
         "- add repo-native wiki/docs with north-stars and self-improvement loop",
         "- add repo-native project, milestones, and tasks",
         "- add assets/ with an original agent identity image prompt and optional generated image",
+        "- add an `agentic-context` CLI command or startup hook that fetches the latest agentic intelligence gist",
         "- install editable CLI and verify `--help`",
         "- teach the chosen router/orchestrator how to route to it",
         "- commit and push",

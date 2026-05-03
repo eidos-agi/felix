@@ -2,7 +2,18 @@ from __future__ import annotations
 
 import argparse
 
-from .core import doctor, find_agent, list_agents, render_self_checks, roadmap, run_checks, scaffold_plan, standards
+from .core import (
+    agentic_context_source,
+    doctor,
+    fetch_agentic_context,
+    find_agent,
+    list_agents,
+    render_self_checks,
+    roadmap,
+    run_checks,
+    scaffold_plan,
+    standards,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -17,6 +28,8 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("roadmap", help="show Felix's agent-building roadmap")
     subparsers.add_parser("self", help="audit Felix against his own standards")
     subparsers.add_parser("standards", help="show standard requirements for every agent")
+    subparsers.add_parser("agentic-context", help="fetch the latest agentic intelligence context gist")
+    subparsers.add_parser("agentic-context-source", help="show the live agentic intelligence context URL")
 
     agents_parser = subparsers.add_parser("agents", help="inspect known agents")
     agents_sub = agents_parser.add_subparsers(dest="agents_command", required=True)
@@ -52,6 +65,14 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "standards":
         for item in standards():
             print(f"- {item}")
+        return 0
+
+    if args.command == "agentic-context":
+        print(fetch_agentic_context())
+        return 0
+
+    if args.command == "agentic-context-source":
+        print(agentic_context_source())
         return 0
 
     if args.command == "agents":

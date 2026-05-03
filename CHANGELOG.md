@@ -11,6 +11,7 @@ The format is based on Keep a Changelog, and this project follows Semantic Versi
 - `felix check` command for the standard local maintenance pass.
 - Scridos wiki with project, milestones, and task list.
 - Public credits for Karpathy's `llm-wiki` gist and `Pratiyush/llm-wiki`.
+- Live `agentic-context` command and standard for fetching Daniel Shanklin's Agentic Intelligence gist before the LLM thinks.
 - Registered Knox, Capcom, and Dewey as planned agents.
 - FOSS Forge health files and self-documentation.
 - Original Felix builder mascot.

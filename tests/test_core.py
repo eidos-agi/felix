@@ -1,4 +1,5 @@
 from felix.core import (
+    agentic_context_source,
     check_commands,
     doctor,
     find_agent,
@@ -33,6 +34,7 @@ def test_standards_require_wiki_and_tasks():
     assert "open-source health files" in text
     assert "original agent identity image" in text
     assert "visible agent name" in text
+    assert "agentic intelligence context injection" in text
 
 
 def test_roadmap_prioritizes_knox_then_capcom():
@@ -42,12 +44,14 @@ def test_roadmap_prioritizes_knox_then_capcom():
     assert "Scaffold Capcom" in text
     assert "Scaffold Dewey" in text
     assert "agent identity image prompts" in text
+    assert "agentic intelligence gist" in text
 
 
 def test_scaffold_plan_specializes_knox_and_capcom():
     assert "Touch ID" in scaffold_plan("knox")
     assert "acknowledgement" in scaffold_plan("capcom")
     assert "Code Context Engine" in scaffold_plan("dewey")
+    assert "agentic-context" in scaffold_plan("knox")
 
 
 def test_doctor_reports_wiki():
@@ -69,3 +73,9 @@ def test_check_commands_capture_maintenance_loop():
     assert "ruff check ." in commands
     assert "scridos lint wiki/felix" in commands
     assert "python -m felix.cli self" in commands
+
+
+def test_agentic_context_source_is_live_gist_url():
+    source = agentic_context_source()
+
+    assert "gist.githubusercontent.com/dshanklin-bv/0ea9eae3845566a255f4fe9e0bf21590/raw/agentic_intelligence.md" in source
