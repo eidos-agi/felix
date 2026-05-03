@@ -38,6 +38,9 @@ def test_standards_require_wiki_and_tasks():
     assert "agentic intelligence context injection" in text
     assert "have, want, and don't want" in text
     assert "tools as evidence" in text
+    assert "thinking, tools, memory, coordination" in text
+    assert "memory as thinking substrate" in text
+    assert "North Star goal-orientation" in text
 
 
 def test_roadmap_prioritizes_knox_then_capcom():
@@ -101,3 +104,4 @@ def test_agent_template_files_exist_and_encode_agent_shape():
     assert "Want:" in text
     assert "Don't want:" in text
     assert "evidence to reconcile" in text
+    assert "memory is part of thinking" in text

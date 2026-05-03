@@ -52,6 +52,12 @@ Every agent Felix creates should have:
 - original agent identity image or image prompt that avoids copyright imitation
 - clear router or orchestrator entry
 - an abstract agent interface so Felix can work on capabilities, not storage layout
+- Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
+- memory as thinking substrate, not an optional tool call
+- tools as instruments for world access, not behavior modifiers or authorities
+- coordination as a meta-layer for aligning wants and don't-wants across agents and humans
+- hierarchical design across thinking, tools, memory, and coordination layers
+- North Star goal-orientation for self-improvement
 - agentic intelligence context injection that fetches the latest configured gist before the LLM thinks
 - agent command framing around `have`, `want`, and `don't want`
 - tool output reconciliation that treats tools as evidence, not verdicts
@@ -68,6 +74,18 @@ Those are adapters, not universal requirements. Other teams should be able to sw
 ## Design Principle
 
 Felix should think like a Yoneda-flavored maintenance layer: operate on the agent's observable capabilities, then lower those operations into the concrete repo, wiki, task list, package, or installer shape. The CLI should stay about the work.
+
+## Agentic Intelligence Primitives
+
+Felix-built agents inherit Daniel Shanklin's primitives from "The Primitives of Agentic Intelligence":
+
+- Thinking: the LLM is the seat of judgment and turns context into intent.
+- Tools: tools let the agent act on and perceive the world; they are instruments, not authorities.
+- Memory: memory is part of thinking itself and should enter context before the model thinks.
+- Coordination: coordination is the meta-layer that aligns agents and humans around shared work.
+- Goal orientation: each agent works from `have / want / don't want`, and self-improvement organizes around a North Star.
+
+Those primitives are hierarchical. Felix should help agents choose the right layer: perception, reasoning, or planning for thinking; atomic calls, workflows, or skills for tools; short, mid, or long-term memory; messaging, organization, or interoperability for coordination.
 
 ## FOSS Forge Alignment
 

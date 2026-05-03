@@ -106,6 +106,12 @@ STANDARD_AGENT_REQUIREMENTS = (
     "open-source health files when the agent may become reusable public software",
     "router or orchestrator entry",
     "abstract agent interface so Felix works on capabilities, not storage layout",
+    "Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation",
+    "memory as thinking substrate, not an optional tool call",
+    "tools as instruments for world access, not behavior modifiers or authorities",
+    "coordination as a meta-layer for aligning wants and don't-wants across agents and humans",
+    "hierarchical design across thinking, tools, memory, and coordination layers",
+    "North Star goal-orientation for self-improvement",
     "agentic intelligence context injection that fetches the latest configured gist before the LLM thinks",
     "agent command framing that asks for have, want, and don't want before action",
     "tool output reconciliation that treats tools as evidence, not verdicts",
@@ -163,6 +169,8 @@ def render_agent_template() -> str:
             "- agentic-context: fetches the latest live Agentic Intelligence gist",
             "- agentic-context-source: prints the unpinned raw gist URL",
             "- agent: frames a request as have / want / don't want, evidence, judgment, first action, and done proof",
+            "- primitives stance: thinking, tools, memory, coordination, and goal orientation",
+            "- memory stance: memory is substrate for thinking, not an optional tool call",
             "- tool-output stance: evidence to reconcile, not verdicts to parrot",
         ]
     )

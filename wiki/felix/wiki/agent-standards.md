@@ -18,6 +18,12 @@ Every agent Felix creates or maintains should have:
 - original agent identity image or image prompt that avoids copyright imitation
 - open-source health files when the agent may become reusable public software
 - router or orchestrator entry
+- Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
+- memory as thinking substrate, not an optional tool call
+- tools as instruments for world access, not behavior modifiers or authorities
+- coordination as a meta-layer for aligning wants and don't-wants across agents and humans
+- hierarchical design across thinking, tools, memory, and coordination layers
+- North Star goal-orientation for self-improvement
 - agentic intelligence context injection that fetches the latest configured gist before the LLM thinks
 - agent command framing around `have`, `want`, and `don't want`
 - tool output reconciliation that treats tools as evidence, not verdicts
@@ -27,6 +33,14 @@ The CLI should be about the work, not about storage internals.
 ## Agentic Intelligence Context
 
 Every CLI Felix builds should expose an `agentic-context` command or equivalent startup hook. That surface should fetch the latest unpinned Agentic Intelligence gist before the LLM thinks, because memory/context should be substrate rather than a tool the agent might forget to call.
+
+The primitives Felix expects every generated agent to inherit are:
+
+- Thinking: the LLM is the seat of judgment.
+- Tools: instruments for access to the world, not behavior modifiers or authorities.
+- Memory: substrate that shapes thinking before inference, not an optional tool call.
+- Coordination: a meta-layer for aligning wants and don't-wants across agents and humans.
+- Goal orientation: `have / want / don't want`, with self-improvement organized around a North Star.
 
 Agent-facing commands should also apply the gist's orientation model:
 
