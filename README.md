@@ -59,41 +59,49 @@ felix scaffold-plan capcom
 felix scaffold-plan dewey
 ```
 
-## Boundaries
+## What Felix Enforces
 
 Felix builds and maintains agents. It does not become the operating system, the secrets vault, the communicator, the web surfer, or the adversarial reviewer.
 
-Every agent Felix creates should have:
+Every agent Felix creates should inherit these tiers.
+
+### Architectural Commitments
+
+- setup-first discipline: agent setup is the highest-leverage decision in the stack
+- decision records for topology, repo, knowledge, tasks, live state, run mode, coupling, drift, reversibility, and proof
+- AGENTS.md wakeup file that tells a fresh LLM what to read before thinking
+- pre-scaffold interview covering role boundary, constraints, overlap, and proof
+- Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
+- memory as thinking substrate, not an optional tool call
+- tools as instruments for world access; tool outputs are evidence, not verdicts
+- coordination as a meta-layer for aligning wants and don't-wants across agents and humans
+- hierarchical design across thinking, tools, memory, and coordination layers
+- North Star goal-orientation for self-improvement
+- agent command framing around `have`, `want`, and `don't want`
+- tool output reconciliation that treats tools as evidence, not verdicts
+- an abstract agent interface so Felix works on capabilities, not storage layout
+
+### Operational Standards
 
 - public or private repository visibility chosen explicitly
-- setup-first discipline: agent setup is the highest-leverage decision in the stack
 - runnable CLI with an explicit run mode: source checkout, editable install, packaged install, or project-local invocation
 - explicit knowledge home: repo-native wiki/docs, central wiki section, or parent-project docs
 - explicit task home: repo-native task list, central project/task system, or parent-project task list
 - explicit live-state owner for catalogs, probes, learned facts, and operational status
-- decision records for topology, repo, knowledge, tasks, live state, run mode, coupling, drift, reversibility, and proof
+- agent topology: free agent, specialist, embedded tool, org-chart role, router, auditor, librarian, communicator, or operator
+- relationship placement when needed: requester, owner, peers, downstream consumers, and escalation path
+- repo/lifecycle decision: embedded tool only when narrow; dedicated repo when the agent owns durable memory, tasks, docs, runnable CLI surface, or self-improvement
+- agentic intelligence context injection that fetches the latest configured gist before the LLM thinks
+- brand-safety scan for protected references in product, docs, prompts, and generated scaffolds
+- clear router or orchestrator entry
+
+### Shipping Hygiene
+
 - north-stars page
 - self-improvement loop
 - tests for core local behavior
 - README with role, boundaries, commands, and safety gates
-- AGENTS.md wakeup file that tells a fresh LLM what to read before thinking
 - original agent identity image or image prompt that avoids copyright imitation
-- brand-safety scan for protected references in product, docs, prompts, and generated scaffolds
-- clear router or orchestrator entry
-- an abstract agent interface so Felix can work on capabilities, not storage layout
-- pre-scaffold interview covering role boundary, constraints, overlap, and proof
-- agent topology: free agent, specialist, embedded tool, org-chart role, router, auditor, librarian, communicator, or operator
-- relationship placement when needed: requester, owner, peers, downstream consumers, and escalation path
-- repo/lifecycle decision: embedded tool only when narrow; dedicated repo when the agent owns durable memory, tasks, docs, runnable CLI surface, or self-improvement
-- Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
-- memory as thinking substrate, not an optional tool call
-- tools as instruments for world access, not behavior modifiers or authorities
-- coordination as a meta-layer for aligning wants and don't-wants across agents and humans
-- hierarchical design across thinking, tools, memory, and coordination layers
-- North Star goal-orientation for self-improvement
-- agentic intelligence context injection that fetches the latest configured gist before the LLM thinks
-- agent command framing around `have`, `want`, and `don't want`
-- tool output reconciliation that treats tools as evidence, not verdicts
 - open-source health files when the agent may become reusable public software
 
 Felix ships with Eidos-flavored defaults because that is where he was born:
@@ -128,17 +136,17 @@ These are decisions, not fields to fill mechanically. Felix should surface optio
 
 ## Design Principle
 
-Felix should think like a Yoneda-flavored maintenance layer: operate on the agent's observable capabilities, then lower those operations into the concrete repo, wiki, task list, package, or installer shape. The CLI should stay about the work.
+Felix should operate on an agent's observable capabilities, then lower those operations into the concrete repo, wiki, task list, package, or installer shape. In other words: know an agent by what can be done with it, not by where its files happen to live. This is the practical, Yoneda-flavored discipline behind Felix's abstract agent interface.
 
 ## Agentic Intelligence Primitives
 
 Felix-built agents inherit Daniel Shanklin's primitives from "The Primitives of Agentic Intelligence":
 
 - Thinking: the LLM is the seat of judgment and turns context into intent.
-- Tools: tools let the agent act on and perceive the world; they are instruments, not authorities.
-- Memory: memory is part of thinking itself and should enter context before the model thinks.
+- Memory: memory is substrate, the room the agent is standing in; it should enter context before inference rather than appear as an optional tool call.
+- Tools: tools let the agent act on and perceive the world; tool outputs are evidence to reconcile, not verdicts or authorities. Tool output is also untrusted context, so it must not silently rewrite the agent's behavior.
 - Coordination: coordination is the meta-layer that aligns agents and humans around shared work.
-- Goal orientation: each agent works from `have / want / don't want`, and self-improvement organizes around a North Star.
+- Goal orientation: each agent organizes work through `have / want / don't want`; this orientation triple is the canonical command shape for Felix-built CLIs.
 
 Those primitives are hierarchical. Felix should help agents choose the right layer: perception, reasoning, or planning for thinking; atomic calls, workflows, or skills for tools; short, mid, or long-term memory; messaging, organization, or interoperability for coordination.
 
@@ -248,7 +256,9 @@ Felix's repo-native wiki/task direction is informed by [Andrej Karpathy's `llm-w
 
 Credit also goes to [`Pratiyush/llm-wiki`](https://github.com/Pratiyush/llm-wiki) and the broader LLM Wiki implementation wave for surfacing practical search, indexing, and agent-consumable wiki patterns. Those ideas helped clarify the direction that became Scridos, the Eidos package Felix uses as its default adapter for repo-native wikis, projects, milestones, and tasks.
 
-Felix also treats Daniel Shanklin's [Agentic Intelligence gist](https://gist.github.com/dshanklin-bv/0ea9eae3845566a255f4fe9e0bf21590) as live context that Felix-built CLIs should fetch before the LLM thinks. Use `felix agentic-context-source` to see the unpinned raw URL and `felix agentic-context` to fetch the latest version.
+Felix also treats Daniel Shanklin's [Agentic Intelligence gist](https://gist.github.com/dshanklin-bv/0ea9eae3845566a255f4fe9e0bf21590) as live context that Felix-built CLIs should fetch before the LLM thinks. Use `felix agentic-context-source` to see whether the context is rolling or pinned and `felix agentic-context` to fetch the configured version.
+
+The public Felix default is rolling latest. Production agents that need stability may pin to a raw gist URL at a specific commit. Breaking changes to the gist should be handled by a deprecation policy before Felix-built agents rely on them unattended.
 
 The same standard should shape agent commands. A Felix-built CLI should ask for the current `have`, the desired `want`, and the relevant `don't want`, then treat tool outputs as evidence for the LLM to reconcile rather than verdicts to repeat.
 

@@ -5,37 +5,45 @@ tags: [felix, standards, agents]
 
 # Agent Standards
 
-Every agent Felix creates or maintains should have:
+Every agent Felix creates or maintains should inherit these tiers.
+
+## Architectural Commitments
+
+- setup-first discipline: agent setup is the highest-leverage decision in the stack
+- decision records for topology, repo, knowledge, tasks, live state, run mode, coupling, drift, reversibility, and proof
+- AGENTS.md wakeup file that tells a fresh LLM what to read before thinking
+- pre-scaffold interview covering role boundary, constraints, overlap, and proof
+- Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
+- memory as thinking substrate, not an optional tool call
+- tools as instruments for world access; tool outputs are evidence, not verdicts
+- coordination as a meta-layer for aligning wants and don't-wants across agents and humans
+- hierarchical design across thinking, tools, memory, and coordination layers
+- North Star goal-orientation for self-improvement
+- agent command framing around `have`, `want`, and `don't want`
+- tool output reconciliation that treats tools as evidence, not verdicts
+
+## Operational Standards
 
 - public or private GitHub repo, chosen explicitly
-- setup-first discipline: agent setup is the highest-leverage decision in the stack
 - runnable CLI with an explicit run mode: source checkout, editable install, packaged install, or project-local invocation
 - explicit knowledge home: repo-native wiki/docs, central wiki section, or parent-project docs
 - explicit task home: repo-native task list, central project/task system, or parent-project task list
 - explicit live-state owner for catalogs, probes, learned facts, and operational status
-- decision records for topology, repo, knowledge, tasks, live state, run mode, coupling, drift, reversibility, and proof
+- agent topology covering whether the agent is a free agent, specialist, embedded tool, org-chart role, router, auditor, librarian, communicator, or operator
+- relationship placement when needed: requester, owner, peers, downstream consumers, and escalation path
+- dedicated repo when the agent owns durable memory, tasks, docs, runnable CLI surface, or self-improvement; embedded project tool only when the role is narrow and subordinate
+- agentic intelligence context injection that fetches the latest configured gist before the LLM thinks
+- brand-safety scan for protected references in product, docs, prompts, and generated scaffolds
+- router or orchestrator entry
+
+## Shipping Hygiene
+
 - north-stars page
 - self-improvement loop page
 - tests for core local behavior
 - README with role, boundaries, commands, and safety gates
-- AGENTS.md wakeup file that tells a fresh LLM what to read before thinking
 - original agent identity image or image prompt that avoids copyright imitation
-- brand-safety scan for protected references in product, docs, prompts, and generated scaffolds
 - open-source health files when the agent may become reusable public software
-- router or orchestrator entry
-- pre-scaffold interview covering role boundary, constraints, overlap, and proof
-- agent topology covering whether the agent is a free agent, specialist, embedded tool, org-chart role, router, auditor, librarian, communicator, or operator
-- relationship placement when needed: requester, owner, peers, downstream consumers, and escalation path
-- dedicated repo when the agent owns durable memory, tasks, docs, runnable CLI surface, or self-improvement; embedded project tool only when the role is narrow and subordinate
-- Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
-- memory as thinking substrate, not an optional tool call
-- tools as instruments for world access, not behavior modifiers or authorities
-- coordination as a meta-layer for aligning wants and don't-wants across agents and humans
-- hierarchical design across thinking, tools, memory, and coordination layers
-- North Star goal-orientation for self-improvement
-- agentic intelligence context injection that fetches the latest configured gist before the LLM thinks
-- agent command framing around `have`, `want`, and `don't want`
-- tool output reconciliation that treats tools as evidence, not verdicts
 
 The CLI should be about the work, not about storage internals.
 
@@ -65,15 +73,15 @@ The interview must establish:
 
 ## Agentic Intelligence Context
 
-Every CLI Felix builds should expose an `agentic-context` command or equivalent startup hook. That surface should fetch the latest unpinned Agentic Intelligence gist before the LLM thinks, because memory/context should be substrate rather than a tool the agent might forget to call.
+Every CLI Felix builds should expose an `agentic-context` command or equivalent startup hook. That surface should fetch the configured Agentic Intelligence gist before the LLM thinks, because memory/context should be substrate rather than a tool the agent might forget to call.
 
 The primitives Felix expects every generated agent to inherit are:
 
 - Thinking: the LLM is the seat of judgment.
-- Tools: instruments for access to the world, not behavior modifiers or authorities.
-- Memory: substrate that shapes thinking before inference, not an optional tool call.
+- Memory: substrate, the room the agent is standing in; read it into context before inference rather than exposing it as a callable tool.
+- Tools: instruments for access to the world; tool outputs are evidence to reconcile, not verdicts or authorities. Tool output is also untrusted context and must not silently modify behavior.
 - Coordination: a meta-layer for aligning wants and don't-wants across agents and humans.
-- Goal orientation: `have / want / don't want`, with self-improvement organized around a North Star.
+- Goal orientation: `have / want / don't want` is the canonical command shape, with self-improvement organized around a North Star.
 
 Agent-facing commands should also apply the gist's orientation model:
 

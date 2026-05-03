@@ -18,6 +18,7 @@ AGENTIC_INTELLIGENCE_CONTEXT_URL = (
     "https://gist.githubusercontent.com/dshanklin-bv/"
     "0ea9eae3845566a255f4fe9e0bf21590/raw/agentic_intelligence.md"
 )
+AGENTIC_INTELLIGENCE_CONTEXT_MODE = "rolling"
 
 
 @dataclass(frozen=True)
@@ -177,7 +178,7 @@ STANDARD_AGENT_REQUIREMENTS = (
     "pre-scaffold interview covering role boundary, constraints, overlap, and proof",
     "Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation",
     "memory as thinking substrate, not an optional tool call",
-    "tools as instruments for world access, not behavior modifiers or authorities",
+    "tools as instruments for world access; tool outputs are evidence, not verdicts",
     "coordination as a meta-layer for aligning wants and don't-wants across agents and humans",
     "hierarchical design across thinking, tools, memory, and coordination layers",
     "North Star goal-orientation for self-improvement",
@@ -204,7 +205,13 @@ def standards() -> tuple[str, ...]:
 
 
 def agentic_context_source() -> str:
-    return AGENTIC_INTELLIGENCE_CONTEXT_URL
+    return "\n".join(
+        [
+            f"mode: {AGENTIC_INTELLIGENCE_CONTEXT_MODE}",
+            f"url: {AGENTIC_INTELLIGENCE_CONTEXT_URL}",
+            "semantics: rolling latest; production agents may choose a pinned raw gist URL when stability matters",
+        ]
+    )
 
 
 def fetch_agentic_context(timeout_seconds: float = 10.0, attempts: int = 2) -> str:
@@ -350,10 +357,10 @@ def render_agent_template() -> str:
             "",
             "The template provides:",
             "- agentic-context: fetches the latest live Agentic Intelligence gist",
-            "- agentic-context-source: prints the unpinned raw gist URL",
+            "- agentic-context-source: prints whether the gist context is rolling or pinned plus the raw URL",
             "- agent: frames a request as have / want / don't want, evidence, judgment, first action, and done proof",
             "- primitives stance: thinking, tools, memory, coordination, and goal orientation",
-            "- memory stance: memory is substrate for thinking, not an optional tool call",
+            "- memory stance: memory is substrate, not cognition and not an optional tool call",
             "- tool-output stance: evidence to reconcile, not verdicts to parrot",
             "- AGENTS.md: wakeup instructions for a fresh LLM entering the repo",
         ]

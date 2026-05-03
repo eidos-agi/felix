@@ -21,6 +21,12 @@ You do not remember previous sessions. The repo is your memory substrate. Read t
 - Coordination: align with the user, other agents, and the repo's public/private boundary.
 - Goal orientation: frame work as `have / want / don't want`.
 
+The orientation triple is the spine of this agent's command behavior:
+
+- `have`: current state, context, resources, and evidence
+- `want`: target state or success condition
+- `don't want`: failure modes, boundaries, and technically-correct-but-wrong outcomes
+
 ## Before Acting
 
 State the current:

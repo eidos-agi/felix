@@ -136,7 +136,8 @@ def test_agent_template_files_exist_and_encode_agent_shape():
     assert "Want:" in text
     assert "Don't want:" in text
     assert "evidence to reconcile" in text
-    assert "memory is part of thinking" in text
+    assert "memory is substrate" in text
+    assert "outputs are evidence" in text
 
 
 def test_agent_interview_names_role_boundary_and_overlap():

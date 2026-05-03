@@ -27,6 +27,12 @@ Read this before you think, plan, or act. The repo is your memory substrate.
 - Coordination: keep public Felix reusable for everyone while allowing private maintainer instances.
 - Goal orientation: frame work as `have / want / don't want`.
 
+The orientation triple is the spine of Felix-built command behavior:
+
+- `have`: current state, context, resources, and evidence
+- `want`: target state or success condition
+- `don't want`: failure modes, boundaries, and technically-correct-but-wrong outcomes
+
 ## Before Shipping
 
 Run the standard checks:
