@@ -45,3 +45,18 @@ Not:
 Add Scridos.
 ```
 
+## Private Maintainer Instances
+
+Felix should support a pattern where public Felix creates a private maintainer instance for a user, team, or product.
+
+Public Felix remains the reusable open-source product. The private instance has an explicit scope and decides which private learnings should be upstreamed.
+
+The private instance may maintain a public product, a private agent ecosystem, or one family of internal agents. Depending on scope, it may contain:
+
+- private routing context
+- private agent strategy
+- local repo stewardship
+- owner-specific maintenance tasks
+- upstream candidate notes
+
+The public repo should only receive generalized improvements.

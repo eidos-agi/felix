@@ -28,6 +28,7 @@ Felix owns:
 - [[felix-self]] -- Felix's identity, boundaries, mascot, and canonical home
 - [[foss-forge-alignment]] -- how Felix follows FOSS Forge principles
 - [[for-everyone]] -- public portability and adapter boundaries
+- [[private-maintainer-instances]] -- public Felix pattern plus private user/team instance
 - [[agent-identity-images]] -- original image prompts for agent identity kits
 - [[knox-roadmap]] -- secrets/access agent roadmap
 - [[capcom-roadmap]] -- mission-control communicator roadmap

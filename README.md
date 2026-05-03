@@ -1,6 +1,6 @@
 # Felix
 
-![Original Felix builder mascot](assets/felix-builder.svg)
+![Original Felix builder mascot](assets/felix-mascot.png)
 
 Fix-it Felix is the agent-builder and maintainer for agent ecosystems.
 
@@ -72,7 +72,7 @@ Felix follows the FOSS Forge standard for agentic software:
 
 Felix is public alpha software under the Eidos AGI organization.
 
-The mascot in this repo is original artwork inspired by the idea of a cheerful repair helper. It is not official Disney character art.
+The mascot in this repo is original generated artwork inspired by the idea of a cheerful repair helper. It is not official Disney character art. The repo keeps the image prompt in `assets/felix-image-prompt.md` so the asset can be regenerated or improved.
 
 ## For Everyone
 
@@ -86,6 +86,27 @@ Felix should avoid assuming one person's machine, one organization, one task sys
 - identity image prompt, not one generated asset
 
 The Eidos setup should remain a working reference implementation, not a cage.
+
+## Private Maintainer Instances
+
+Public Felix is the reusable pattern. A user or team can also create a private maintainer instance of Felix.
+
+That private instance should have an explicit scope. It might maintain a public product, a private agent ecosystem, or one family of internal agents.
+
+Depending on scope, it can hold:
+
+- owner-specific agent routing
+- private repo maintenance tasks
+- private strategy and product thinking
+- notes about what should be upstreamed to public Felix
+
+The public/private rule is simple:
+
+- generalized standards belong in public Felix
+- owner-specific context belongs in the private maintainer instance
+- uncertain ideas should be classified before they are upstreamed
+
+A private instance should still use Felix standards: CLI, wiki/docs, tasks, tests, explicit repo visibility, identity image prompt, and router/orchestrator entry.
 
 ## Agent Identity Images
 
