@@ -16,6 +16,7 @@ The format is based on Keep a Changelog, and this project follows Semantic Versi
 - Reusable Python agent CLI template with `agentic-context`, `agentic-context-source`, and `agent` commands.
 - Dry-run-first `felix scaffold <name>` command for generating starter agent repos from Felix templates.
 - `felix brand-safety` audit plus generated scaffold brand-safety tests.
+- `felix interview <name>` pre-scaffold role-boundary and overlap interview.
 - Agentic Intelligence primitive standards for thinking, tools, memory, coordination, hierarchy, and North Star goal-orientation.
 - AGENTS.md wakeup template for fresh LLM agents entering a repo.
 - Registered Knox, Capcom, and Dewey as planned agents.

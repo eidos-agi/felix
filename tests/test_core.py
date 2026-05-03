@@ -9,6 +9,7 @@ from felix.core import (
     find_agent,
     list_agents,
     render_brand_safety,
+    render_agent_interview,
     render_scaffold_result,
     render_self_checks,
     roadmap,
@@ -53,6 +54,7 @@ def test_standards_require_wiki_and_tasks():
     assert "memory as thinking substrate" in text
     assert "North Star goal-orientation" in text
     assert "brand-safety scan" in text
+    assert "pre-scaffold interview" in text
 
 
 def test_roadmap_prioritizes_knox_then_capcom():
@@ -67,6 +69,7 @@ def test_roadmap_prioritizes_knox_then_capcom():
     assert "Python agent CLI template" in text
     assert "AGENTS.md wakeup files" in text
     assert "felix scaffold agent-name" in text
+    assert "felix interview agent-name" in text
     assert "brand-safety audits" in text
 
 
@@ -75,6 +78,7 @@ def test_scaffold_plan_specializes_knox_and_capcom():
     assert "acknowledgement" in scaffold_plan("capcom")
     assert "Code Context Engine" in scaffold_plan("dewey")
     assert "agentic-context" in scaffold_plan("knox")
+    assert "felix interview knox" in scaffold_plan("knox")
     assert "AGENTS.md wakeup file" in scaffold_plan("knox")
     assert "have, want, and don't want" in scaffold_plan("knox")
     assert "evidence to reconcile" in scaffold_plan("knox")
@@ -126,6 +130,25 @@ def test_agent_template_files_exist_and_encode_agent_shape():
     assert "Don't want:" in text
     assert "evidence to reconcile" in text
     assert "memory is part of thinking" in text
+
+
+def test_agent_interview_names_role_boundary_and_overlap():
+    text = render_agent_interview("sage", purpose="Sage Intacct maintenance CLI")
+
+    assert "Felix agent interview: Sage" in text
+    assert "Do not scaffold yet" in text
+    assert "Role boundary" in text
+    assert "Have / want / don't want" in text
+    assert "What should `doctor` check?" in text
+    assert "What CLI verbs should exist" in text
+    assert "Known-agent overlap check" in text
+    assert "felix scaffold sage" in text
+
+
+def test_agent_interview_detects_registered_overlap():
+    text = render_agent_interview("knox", purpose="secrets and access")
+
+    assert "possible overlap: knox" in text
 
 
 def test_scaffold_dry_run_lists_generated_repo_files(tmp_path):

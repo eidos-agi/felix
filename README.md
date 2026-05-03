@@ -28,6 +28,7 @@ felix agents list
 felix agents show knox
 felix standards
 felix brand-safety
+felix interview sage --purpose "Sage Intacct maintenance CLI"
 felix agentic-context
 felix agentic-context-source
 felix agent-template
@@ -57,6 +58,7 @@ Every agent Felix creates should have:
 - brand-safety scan for protected references in product, docs, prompts, and generated scaffolds
 - clear router or orchestrator entry
 - an abstract agent interface so Felix can work on capabilities, not storage layout
+- pre-scaffold interview covering role boundary, constraints, overlap, and proof
 - Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
 - memory as thinking substrate, not an optional tool call
 - tools as instruments for world access, not behavior modifiers or authorities
@@ -75,6 +77,16 @@ Felix ships with Eidos-flavored defaults because that is where he was born:
 - Reeves as one example router/orchestrator
 
 Those are adapters, not universal requirements. Other teams should be able to swap in their own wiki, tracker, release standard, and router while keeping the same Felix-shaped health model.
+
+## Pre-Scaffold Interview
+
+Felix should interview the user before creating a new agent:
+
+```bash
+felix interview sage --purpose "Sage Intacct maintenance CLI"
+```
+
+The interview makes the user define the human role being compiled into an agent, what the agent may decide, what it must not own, what existing agents it may overlap, which methods and constraints apply, and what proof shows the new agent is useful rather than duplicative.
 
 ## Design Principle
 

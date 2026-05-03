@@ -13,6 +13,7 @@ from .core import (
     fetch_agentic_context,
     find_agent,
     list_agents,
+    render_agent_interview,
     render_self_checks,
     roadmap,
     run_checks,
@@ -39,6 +40,9 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("agent-template", help="show the reusable Python agent CLI template")
     brand_parser = subparsers.add_parser("brand-safety", help="audit protected brand references")
     brand_parser.add_argument("--root", type=Path, help="root to scan; defaults to this repo")
+    interview_parser = subparsers.add_parser("interview", help="run the pre-scaffold role-boundary interview")
+    interview_parser.add_argument("name")
+    interview_parser.add_argument("--purpose", default="", help="brief purpose to improve overlap checks")
 
     agents_parser = subparsers.add_parser("agents", help="inspect known agents")
     agents_sub = agents_parser.add_subparsers(dest="agents_command", required=True)
@@ -97,6 +101,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "brand-safety":
         print(render_brand_safety(args.root))
         return 1 if audit_brand_safety(args.root) else 0
+
+    if args.command == "interview":
+        print(render_agent_interview(args.name, purpose=args.purpose))
+        return 0
 
     if args.command == "agents":
         if args.agents_command == "list":

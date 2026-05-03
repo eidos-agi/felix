@@ -20,6 +20,7 @@ Every agent Felix creates or maintains should have:
 - brand-safety scan for protected references in product, docs, prompts, and generated scaffolds
 - open-source health files when the agent may become reusable public software
 - router or orchestrator entry
+- pre-scaffold interview covering role boundary, constraints, overlap, and proof
 - Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
 - memory as thinking substrate, not an optional tool call
 - tools as instruments for world access, not behavior modifiers or authorities
@@ -31,6 +32,23 @@ Every agent Felix creates or maintains should have:
 - tool output reconciliation that treats tools as evidence, not verdicts
 
 The CLI should be about the work, not about storage internals.
+
+## Pre-Scaffold Interview
+
+Felix should not create a new agent just because the user has a name. Before writing files, run:
+
+```bash
+felix interview <agent-name> --purpose "<brief role>"
+```
+
+The interview must establish:
+
+- the human role this agent compiles
+- what the agent owns and what it must not own
+- which existing agents may already cover the responsibility
+- the user's methods, constraints, and safety gates
+- what `doctor`, `check`, probes, catalogs, or diagnostics should exist
+- what proof shows this agent is useful and not duplicative
 
 ## Agentic Intelligence Context
 

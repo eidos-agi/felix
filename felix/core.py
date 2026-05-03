@@ -67,6 +67,25 @@ BRAND_SAFETY_FORBIDDEN_REFERENCES = (
 )
 BRAND_SAFETY_IGNORED_PARTS = frozenset({".git", ".pytest_cache", ".ruff_cache", ".venv", "felix.egg-info", "__pycache__"})
 BRAND_SAFETY_TEXT_SUFFIXES = frozenset({"", ".md", ".py", ".toml", ".txt"})
+OVERLAP_STOPWORDS = frozenset(
+    {
+        "agent",
+        "agents",
+        "and",
+        "for",
+        "the",
+        "with",
+        "work",
+        "works",
+        "working",
+        "system",
+        "systems",
+        "maintain",
+        "maintainer",
+        "maintenance",
+        "cli",
+    }
+)
 
 
 AGENTS: tuple[AgentSpec, ...] = (
@@ -144,6 +163,7 @@ STANDARD_AGENT_REQUIREMENTS = (
     "open-source health files when the agent may become reusable public software",
     "router or orchestrator entry",
     "abstract agent interface so Felix works on capabilities, not storage layout",
+    "pre-scaffold interview covering role boundary, constraints, overlap, and proof",
     "Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation",
     "memory as thinking substrate, not an optional tool call",
     "tools as instruments for world access, not behavior modifiers or authorities",
@@ -214,6 +234,67 @@ def render_brand_safety(root: Path | None = None) -> str:
         return "\n".join(lines)
     for finding in findings:
         lines.append(f"- {finding.path}: {finding.reference}")
+    return "\n".join(lines)
+
+
+def likely_agent_overlaps(text: str) -> tuple[AgentSpec, ...]:
+    lowered = text.lower()
+    tokens = {token for token in re.findall(r"[a-z0-9]+", lowered) if len(token) >= 4 and token not in OVERLAP_STOPWORDS}
+    overlaps: list[AgentSpec] = []
+    for agent in AGENTS:
+        haystack = f"{agent.name} {agent.role} {agent.next_action}".lower()
+        if agent.name in tokens or any(token in haystack for token in tokens):
+            overlaps.append(agent)
+    return tuple(overlaps)
+
+
+def render_agent_interview(name: str, purpose: str = "") -> str:
+    agent_name = normalize_agent_name(name)
+    title = _title_for(agent_name)
+    overlaps = likely_agent_overlaps(f"{agent_name} {purpose}")
+    lines = [
+        f"Felix agent interview: {title}",
+        "",
+        "Do not scaffold yet unless these answers are clear.",
+        "",
+        "Role boundary",
+        "1. What job would a competent human own here?",
+        "2. What decisions should this agent make by itself?",
+        "3. What decisions must stay with the user or another agent?",
+        "4. Which existing agent might already own this work?",
+        "",
+        "Have / want / don't want",
+        "5. Have: what systems, repos, data, credentials, docs, and constraints exist now?",
+        "6. Want: what one-command maintenance loop should this agent make possible?",
+        "7. Don't want: what private leakage, unsafe automation, overlap, or technically-correct-but-wrong behavior must be avoided?",
+        "",
+        "Methods and proof",
+        "8. What should `doctor` check?",
+        "9. What should `check` verify before shipping?",
+        "10. What probes, catalogs, or local diagnostics replace slow deploy/manual guessing loops?",
+        "11. What wiki/task memory should be substrate before the LLM thinks?",
+        "12. What brand-safety, secret-safety, finance/legal, or domain-specific gates apply?",
+        "",
+        "Scaffold decision",
+        "13. What CLI verbs should exist on day one?",
+        "14. What files should be generated beyond the Felix defaults?",
+        "15. What done proof shows this agent is not just a wrapper around another agent's responsibility?",
+        "",
+        "Known-agent overlap check",
+    ]
+    if overlaps:
+        for agent in overlaps:
+            lines.append(f"- possible overlap: {agent.name} — {agent.role}")
+    else:
+        lines.append("- no obvious registered-agent overlap from the name/purpose")
+    lines.extend(
+        [
+            "",
+            "Next action",
+            f"- Answer the interview, then run `felix scaffold {agent_name}` for dry-run review.",
+            "- Use `--write` only after role boundary, overlap, constraints, and proof are clear.",
+        ]
+    )
     return "\n".join(lines)
 
 
@@ -437,10 +518,11 @@ def roadmap() -> str:
             "4. Scaffold Dewey as the AI librarian for local indexed context retrieval and token-cost reduction.",
             "5. Add `felix audit` to verify each agent has CLI, wiki/docs, tasks, tests, install, git remote.",
             "6. Use `felix scaffold agent-name` to create the standard repo skeleton.",
-            "6a. For user-specific private maintainer instances, install into the user's personal repo area.",
-            "6b. Add an agentic-context command or equivalent startup hook that fetches the latest agentic intelligence gist before the LLM thinks.",
-            "6c. Make agent commands ask for have/want/don't-want and reconcile tool outputs as evidence.",
-            "6d. Use the Python agent CLI template for generated CLIs.",
+            "6a. Run `felix interview agent-name` before scaffolding so role, overlap, constraints, and proof are clear.",
+            "6b. For user-specific private maintainer instances, install into the user's personal repo area.",
+            "6c. Add an agentic-context command or equivalent startup hook that fetches the latest agentic intelligence gist before the LLM thinks.",
+            "6d. Make agent commands ask for have/want/don't-want and reconcile tool outputs as evidence.",
+            "6e. Use the Python agent CLI template for generated CLIs.",
             "7. Add AGENTS.md wakeup files to scaffolds so fresh LLMs read memory before thinking.",
             "8. Add agent identity image prompts to scaffolds so new agents have original visual identity.",
             "9. Run brand-safety audits so protected references do not creep into public docs, prompts, or scaffolds.",
@@ -513,6 +595,7 @@ def scaffold_plan(name: str) -> str:
     agent_name = name.lower().strip()
     lines = [
         f"Scaffold plan for {agent_name}",
+        f"- run `felix interview {agent_name}` before writing files",
         f"- create a canonical repo for {agent_name}",
         "- choose public or private visibility explicitly",
         "- add AGENTS.md wakeup file at repo root",
