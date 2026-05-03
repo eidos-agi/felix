@@ -30,7 +30,7 @@ Felix should answer:
 - What is missing from an agent?
 - How do we scaffold or repair it?
 - Did the work become documented, tested, committed, pushed, and routeable?
-- Does `felix self` pass?
+- Does `felix check` pass?
 
 ## Public Portability
 
@@ -38,7 +38,7 @@ Felix should be useful outside Eidos. Scridos, FOSS Forge, and Reeves are defaul
 
 ## Mascot
 
-The repo contains an original repair-helper mascot at `assets/felix-builder.svg`. It is intentionally not copied from any official character art.
+The repo contains an original repair-helper mascot at `assets/felix-mascot.png`. It is intentionally not copied from any official character art.
 
 ## Counter-Arguments and Gaps
 

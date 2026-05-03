@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 import shutil
+import subprocess
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -144,6 +145,25 @@ def doctor() -> list[str]:
     return findings
 
 
+def check_commands() -> tuple[tuple[str, ...], ...]:
+    return (
+        ("python", "-m", "pytest", "-q"),
+        ("ruff", "check", "."),
+        ("scridos", "lint", "wiki/felix"),
+        ("felix", "self"),
+    )
+
+
+def run_checks() -> int:
+    worst_exit_code = 0
+    for command in check_commands():
+        print(f"$ {' '.join(command)}", flush=True)
+        result = subprocess.run(command, cwd=REPO_ROOT, check=False)
+        if result.returncode != 0:
+            worst_exit_code = result.returncode
+    return worst_exit_code
+
+
 def self_checks() -> tuple[SelfCheck, ...]:
     checks = [
         SelfCheck("repo_name", REPO_ROOT.name == "felix", str(REPO_ROOT)),
@@ -154,7 +174,7 @@ def self_checks() -> tuple[SelfCheck, ...]:
         SelfCheck("security", (REPO_ROOT / "SECURITY.md").exists(), "SECURITY.md"),
         SelfCheck("code_of_conduct", (REPO_ROOT / "CODE_OF_CONDUCT.md").exists(), "CODE_OF_CONDUCT.md"),
         SelfCheck("ci", (REPO_ROOT / ".github" / "workflows" / "ci.yml").exists(), ".github/workflows/ci.yml"),
-        SelfCheck("mascot", (REPO_ROOT / "assets" / "felix-builder.svg").exists(), "assets/felix-builder.svg"),
+        SelfCheck("mascot", (REPO_ROOT / "assets" / "felix-mascot.png").exists(), "assets/felix-mascot.png"),
         SelfCheck("wiki", WIKI_ROOT.exists(), str(WIKI_ROOT)),
         SelfCheck("task_list", (WIKI_ROOT / "projects" / "agent-platform" / "tasks").exists(), "Scridos task list"),
     ]

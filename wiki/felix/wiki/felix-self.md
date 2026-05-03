@@ -32,11 +32,12 @@ https://github.com/eidos-agi/felix
 - repair playbooks
 - FOSS Forge alignment
 - agent documentation standards
+- maintenance checks through `felix check`
 - self-audit through `felix self`
 
 ## Mascot
 
-Felix includes an original builder mascot at `assets/felix-builder.svg`. It evokes the idea of a cheerful repair helper without copying official character art.
+Felix includes an original builder mascot at `assets/felix-mascot.png`. It evokes the idea of a cheerful repair helper without copying official character art.
 
 ## Counter-Arguments and Gaps
 

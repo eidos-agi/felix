@@ -1,4 +1,14 @@
-from felix.core import doctor, find_agent, list_agents, render_self_checks, roadmap, scaffold_plan, self_checks, standards
+from felix.core import (
+    check_commands,
+    doctor,
+    find_agent,
+    list_agents,
+    render_self_checks,
+    roadmap,
+    scaffold_plan,
+    self_checks,
+    standards,
+)
 
 
 def test_agent_registry_includes_planned_agents():
@@ -49,3 +59,13 @@ def test_self_checks_cover_foss_and_mascot():
 
     assert {"license", "changelog", "contributing", "security", "mascot", "task_list"} <= names
     assert "Felix self-audit:" in render_self_checks()
+    assert any(check.detail == "assets/felix-mascot.png" for check in self_checks())
+
+
+def test_check_commands_capture_maintenance_loop():
+    commands = {" ".join(command) for command in check_commands()}
+
+    assert "python -m pytest -q" in commands
+    assert "ruff check ." in commands
+    assert "scridos lint wiki/felix" in commands
+    assert "felix self" in commands

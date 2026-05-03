@@ -8,6 +8,7 @@ The format is based on Keep a Changelog, and this project follows Semantic Versi
 
 ### Added
 - Felix CLI for agent registry, standards, roadmap, doctor, and scaffold planning.
+- `felix check` command for the standard local maintenance pass.
 - Scridos wiki with project, milestones, and task list.
 - Registered Knox, Capcom, and Dewey as planned agents.
 - FOSS Forge health files and self-documentation.
@@ -17,4 +18,3 @@ The format is based on Keep a Changelog, and this project follows Semantic Versi
 
 ### Added
 - Initial private alpha.
-

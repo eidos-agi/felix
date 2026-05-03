@@ -22,6 +22,7 @@ https://github.com/eidos-agi/felix
 
 ```bash
 felix doctor
+felix check
 felix self
 felix agents list
 felix agents show knox
@@ -167,5 +168,6 @@ Felix documents himself in:
 Felix dogfoods his own standards with:
 
 ```bash
+felix check
 felix self
 ```

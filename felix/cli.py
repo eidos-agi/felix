@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import argparse
 
-from .core import doctor, find_agent, list_agents, render_self_checks, roadmap, scaffold_plan, standards
+from .core import doctor, find_agent, list_agents, render_self_checks, roadmap, run_checks, scaffold_plan, standards
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -13,6 +13,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     subparsers.add_parser("doctor", help="check local prerequisites")
+    subparsers.add_parser("check", help="run Felix's local maintenance checks")
     subparsers.add_parser("roadmap", help="show Felix's agent-building roadmap")
     subparsers.add_parser("self", help="audit Felix against his own standards")
     subparsers.add_parser("standards", help="show standard requirements for every agent")
@@ -36,6 +37,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "doctor":
         print("\n".join(doctor()))
         return 0
+
+    if args.command == "check":
+        return run_checks()
 
     if args.command == "roadmap":
         print(roadmap())
