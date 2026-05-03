@@ -36,7 +36,7 @@ Every agent Felix creates should have:
 
 Felix should think like a Yoneda-flavored maintenance layer: operate on the agent's observable capabilities, then lower those operations into the concrete repo, wiki, task list, package, or installer shape. The CLI should stay about the work.
 
-## Planned Agents
+## Registered Agents
 
 - Knox: secrets and access.
 - Capcom: mission-control communication.

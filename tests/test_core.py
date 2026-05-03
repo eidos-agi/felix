@@ -10,7 +10,7 @@ def test_agent_registry_includes_planned_agents():
 def test_find_agent_returns_boundary():
     agent = find_agent("knox")
 
-    assert agent.status == "planned"
+    assert agent.status == "registered"
     assert "secrets" in agent.role
 
 
