@@ -11,6 +11,7 @@
 
 - Create Knox as the secrets/access agent that replaces Reeves Vault.
 - Create Capcom as the mission-control communicator for important outreach.
+- Create Dewey as the AI librarian for local indexed context retrieval.
 - Ensure both repos have CLI, wiki, project, milestones, tasks, tests, install, commit, and push.
 
 ## Phase 3: Maintenance

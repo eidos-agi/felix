@@ -26,4 +26,5 @@ Felix owns:
 - [[yoneda-agent-interface]] -- capability-first abstraction for maintaining agents
 - [[knox-roadmap]] -- secrets/access agent roadmap
 - [[capcom-roadmap]] -- mission-control communicator roadmap
+- [[dewey-roadmap]] -- AI librarian roadmap for local indexed context retrieval
 - [[self-improvement-loop]] -- how Felix learns from repeated repair/build work

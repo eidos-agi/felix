@@ -62,6 +62,13 @@ AGENTS: tuple[AgentSpec, ...] = (
         "Create private repo with notification policy, channel routing, acknowledgement tracking.",
     ),
     AgentSpec(
+        "dewey",
+        "AI librarian for local indexed context retrieval",
+        "/Users/dshanklinbv/repos-personal/dewey",
+        "planned",
+        "Create private repo that indexes local code/docs/context so agents retrieve precise context instead of rereading huge files.",
+    ),
+    AgentSpec(
         "felix",
         "agent-builder and maintainer",
         "/Users/dshanklinbv/repos-personal/felix",
@@ -108,10 +115,11 @@ def roadmap() -> str:
             "1. Keep the agent registry canonical and source-backed.",
             "2. Scaffold Knox with biometric unlock and strict secret-handling rules.",
             "3. Scaffold Capcom with interruption policy, channel routing, and acknowledgement tracking.",
-            "4. Add `felix audit` to verify each agent has CLI, wiki, Scridos tasks, tests, install, git remote.",
-            "5. Add `felix scaffold agent-name` to create the standard repo skeleton.",
-            "6. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
-            "7. Add an agent adapter layer so checks and repairs compose across repo/wiki/task layouts.",
+            "4. Scaffold Dewey as the AI librarian for local indexed context retrieval and token-cost reduction.",
+            "5. Add `felix audit` to verify each agent has CLI, wiki, Scridos tasks, tests, install, git remote.",
+            "6. Add `felix scaffold agent-name` to create the standard repo skeleton.",
+            "7. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
+            "8. Add an agent adapter layer so checks and repairs compose across repo/wiki/task layouts.",
         ]
     )
 
@@ -153,6 +161,16 @@ def scaffold_plan(name: str) -> str:
                 "- define urgency levels, quiet hours, channels, escalation, and acknowledgement",
                 "- integrate with Reeves tasks/projects as source context",
                 "- log contact attempts without leaking sensitive content unnecessarily",
+            ]
+        )
+    if agent_name == "dewey":
+        lines.extend(
+            [
+                "- study Code Context Engine as an initial backend candidate",
+                "- index local repos, docs, transcripts, and wiki pages without cloud dependency",
+                "- expose retrieval commands that return small source-backed context packets",
+                "- track input-token savings and stale-index risks",
+                "- integrate with Felix audits and Reeves routing without becoming a general assistant",
             ]
         )
     return "\n".join(lines)
