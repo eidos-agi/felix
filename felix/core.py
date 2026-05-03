@@ -49,6 +49,26 @@ class ScaffoldResult:
     skipped: tuple[Path, ...] = ()
 
 
+@dataclass(frozen=True)
+class BrandSafetyFinding:
+    path: Path
+    reference: str
+
+
+BRAND_SAFETY_FORBIDDEN_REFERENCES = (
+    "fix" + "-it",
+    "fix" + " it",
+    "fix" + "it",
+    "wreck" + "-it",
+    "wreck" + " it",
+    "ral" + "ph",
+    "dis" + "ney",
+    "felix " + "jr",
+)
+BRAND_SAFETY_IGNORED_PARTS = frozenset({".git", ".pytest_cache", ".ruff_cache", ".venv", "felix.egg-info", "__pycache__"})
+BRAND_SAFETY_TEXT_SUFFIXES = frozenset({"", ".md", ".py", ".toml", ".txt"})
+
+
 AGENTS: tuple[AgentSpec, ...] = (
     AgentSpec(
         "reeves",
@@ -120,6 +140,7 @@ STANDARD_AGENT_REQUIREMENTS = (
     "README with role, boundaries, commands, and safety gates",
     "AGENTS.md wakeup file that tells a fresh LLM what to read before thinking",
     "original agent identity image or image prompt that avoids copyright imitation and includes the visible agent name",
+    "brand-safety scan for protected references in product, docs, prompts, and generated scaffolds",
     "open-source health files when the agent may become reusable public software",
     "router or orchestrator entry",
     "abstract agent interface so Felix works on capabilities, not storage layout",
@@ -161,6 +182,39 @@ def fetch_agentic_context(timeout_seconds: float = 10.0) -> str:
             return response.read().decode("utf-8")
     except (urllib.error.URLError, TimeoutError) as exc:
         raise RuntimeError(f"Could not fetch agentic intelligence context from {AGENTIC_INTELLIGENCE_CONTEXT_URL}: {exc}") from exc
+
+
+def _brand_safety_files(root: Path) -> tuple[Path, ...]:
+    return tuple(
+        path
+        for path in root.rglob("*")
+        if path.is_file()
+        and path.suffix in BRAND_SAFETY_TEXT_SUFFIXES
+        and not any(part in BRAND_SAFETY_IGNORED_PARTS for part in path.parts)
+    )
+
+
+def audit_brand_safety(root: Path | None = None) -> tuple[BrandSafetyFinding, ...]:
+    scan_root = (root or REPO_ROOT).resolve()
+    findings: list[BrandSafetyFinding] = []
+    for path in _brand_safety_files(scan_root):
+        text = path.read_text(encoding="utf-8").lower()
+        for reference in BRAND_SAFETY_FORBIDDEN_REFERENCES:
+            if reference in text:
+                findings.append(BrandSafetyFinding(path, reference))
+    return tuple(findings)
+
+
+def render_brand_safety(root: Path | None = None) -> str:
+    scan_root = (root or REPO_ROOT).resolve()
+    findings = audit_brand_safety(scan_root)
+    lines = [f"Felix brand-safety audit: {'PASS' if not findings else 'FAIL'}", f"root: {scan_root}", ""]
+    if not findings:
+        lines.append("- no protected-reference terms found")
+        return "\n".join(lines)
+    for finding in findings:
+        lines.append(f"- {finding.path}: {finding.reference}")
+    return "\n".join(lines)
 
 
 def agent_template_files() -> tuple[Path, ...]:
@@ -294,6 +348,35 @@ def scaffold_files(name: str, root: Path | None = None) -> tuple[ScaffoldFile, .
             ),
         ),
         ScaffoldFile(
+            target / "tests" / "test_brand_safety.py",
+            "\n".join(
+                [
+                    "from pathlib import Path",
+                    "",
+                    "",
+                    'FORBIDDEN_REFERENCES = ("fix" + "-it", "fix" + " it", "fix" + "it", "wreck" + "-it", "wreck" + " it", "ral" + "ph", "dis" + "ney", "felix " + "jr")',
+                    'IGNORED_PARTS = {".git", ".pytest_cache", ".ruff_cache", ".venv", "__pycache__"}',
+                    'TEXT_SUFFIXES = {"", ".md", ".py", ".toml", ".txt"}',
+                    "",
+                    "",
+                    "def test_repo_avoids_protected_brand_references():",
+                    "    root = Path(__file__).resolve().parents[1]",
+                    "    files = [",
+                    "        path",
+                    '        for path in root.rglob("*")',
+                    "        if path.is_file()",
+                    "        and path.suffix in TEXT_SUFFIXES",
+                    "        and path != Path(__file__)",
+                    "        and not any(part in IGNORED_PARTS for part in path.parts)",
+                    "    ]",
+                    '    text = "\\n".join(path.read_text(encoding="utf-8").lower() for path in files)',
+                    "",
+                    "    assert not any(reference in text for reference in FORBIDDEN_REFERENCES)",
+                    "",
+                ]
+            ),
+        ),
+        ScaffoldFile(
             target / "wiki" / agent_name / "wiki" / "index.md",
             f"---\ntitle: {title} Wiki\n---\n\n# {title} Wiki\n\nStart here for durable agent memory.\n",
         ),
@@ -360,8 +443,9 @@ def roadmap() -> str:
             "6d. Use the Python agent CLI template for generated CLIs.",
             "7. Add AGENTS.md wakeup files to scaffolds so fresh LLMs read memory before thinking.",
             "8. Add agent identity image prompts to scaffolds so new agents have original visual identity.",
-            "9. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
-            "10. Add an agent adapter layer so checks and repairs compose across repo/wiki/task layouts.",
+            "9. Run brand-safety audits so protected references do not creep into public docs, prompts, or scaffolds.",
+            "10. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
+            "11. Add an agent adapter layer so checks and repairs compose across repo/wiki/task layouts.",
         ]
     )
 
@@ -381,6 +465,7 @@ def check_commands() -> tuple[tuple[str, ...], ...]:
         ("python", "-m", "pytest", "-q"),
         ("ruff", "check", "."),
         ("scridos", "lint", "wiki/felix"),
+        ("python", "-m", "felix.cli", "brand-safety"),
         ("python", "-m", "felix.cli", "self"),
     )
 
@@ -438,6 +523,7 @@ def scaffold_plan(name: str) -> str:
         "- add an `agentic-context` CLI command or startup hook that fetches the latest agentic intelligence gist",
         "- add agent command framing around have, want, and don't want",
         "- make tool outputs evidence to reconcile, not verdicts to parrot",
+        "- add brand-safety test coverage for protected references",
         f"- copy the Python agent CLI template from {AGENT_TEMPLATE_ROOT.relative_to(REPO_ROOT)}",
         "- use `felix scaffold <name>` for dry-run-first repo generation",
         "- install editable CLI and verify `--help`",

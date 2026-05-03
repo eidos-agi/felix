@@ -27,6 +27,7 @@ felix self
 felix agents list
 felix agents show knox
 felix standards
+felix brand-safety
 felix agentic-context
 felix agentic-context-source
 felix agent-template
@@ -53,6 +54,7 @@ Every agent Felix creates should have:
 - README with role, boundaries, commands, and safety gates
 - AGENTS.md wakeup file that tells a fresh LLM what to read before thinking
 - original agent identity image or image prompt that avoids copyright imitation
+- brand-safety scan for protected references in product, docs, prompts, and generated scaffolds
 - clear router or orchestrator entry
 - an abstract agent interface so Felix can work on capabilities, not storage layout
 - Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
@@ -216,6 +218,17 @@ felix scaffold surfari --write
 ```
 
 The scaffold includes root `AGENTS.md`, Python package and CLI files, tests, wiki pages, a task skeleton, and an identity image prompt.
+
+## Brand Safety
+
+Felix generalizes protected-reference cleanup into a reusable audit:
+
+```bash
+felix brand-safety
+felix brand-safety --root path/to/agent-repo
+```
+
+`felix check` runs this audit for Felix itself, and generated scaffolds include brand-safety test coverage by default.
 
 ## Self-Documentation
 

@@ -3,10 +3,12 @@ from pathlib import Path
 from felix.core import (
     agentic_context_source,
     agent_template_files,
+    audit_brand_safety,
     check_commands,
     doctor,
     find_agent,
     list_agents,
+    render_brand_safety,
     render_scaffold_result,
     render_self_checks,
     roadmap,
@@ -19,7 +21,6 @@ from felix.core import (
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-FORBIDDEN_BRAND_REFERENCES = ("fix-it", "fix it", "fixit", "wreck-it", "wreck it", "ralph", "disney", "felix jr")
 
 
 def test_agent_registry_includes_planned_agents():
@@ -51,6 +52,7 @@ def test_standards_require_wiki_and_tasks():
     assert "thinking, tools, memory, coordination" in text
     assert "memory as thinking substrate" in text
     assert "North Star goal-orientation" in text
+    assert "brand-safety scan" in text
 
 
 def test_roadmap_prioritizes_knox_then_capcom():
@@ -65,6 +67,7 @@ def test_roadmap_prioritizes_knox_then_capcom():
     assert "Python agent CLI template" in text
     assert "AGENTS.md wakeup files" in text
     assert "felix scaffold agent-name" in text
+    assert "brand-safety audits" in text
 
 
 def test_scaffold_plan_specializes_knox_and_capcom():
@@ -75,6 +78,7 @@ def test_scaffold_plan_specializes_knox_and_capcom():
     assert "AGENTS.md wakeup file" in scaffold_plan("knox")
     assert "have, want, and don't want" in scaffold_plan("knox")
     assert "evidence to reconcile" in scaffold_plan("knox")
+    assert "brand-safety test coverage" in scaffold_plan("knox")
     assert "templates/python-agent-cli" in scaffold_plan("knox")
     assert "felix scaffold <name>" in scaffold_plan("knox")
 
@@ -97,6 +101,7 @@ def test_check_commands_capture_maintenance_loop():
     assert "python -m pytest -q" in commands
     assert "ruff check ." in commands
     assert "scridos lint wiki/felix" in commands
+    assert "python -m felix.cli brand-safety" in commands
     assert "python -m felix.cli self" in commands
 
 
@@ -141,6 +146,7 @@ def test_scaffold_dry_run_lists_generated_repo_files(tmp_path):
         Path("test_agent/cli.py"),
         Path("test_agent/agentic_context.py"),
         Path("tests/test_cli.py"),
+        Path("tests/test_brand_safety.py"),
         Path("wiki/test-agent/wiki/index.md"),
         Path("assets/test-agent-image-prompt.md"),
     } <= paths
@@ -174,15 +180,15 @@ def test_scaffold_files_normalize_names(tmp_path):
 
 
 def test_public_repo_avoids_protected_felix_references():
-    ignored_parts = {".git", ".pytest_cache", ".ruff_cache", ".venv", "felix.egg-info", "__pycache__"}
-    files = [
-        path
-        for path in REPO_ROOT.rglob("*")
-        if path.is_file()
-        and not any(part in ignored_parts for part in path.parts)
-        and path != Path(__file__)
-        and path.suffix in {"", ".md", ".py", ".toml", ".txt"}
-    ]
-    text = "\n".join(path.read_text(encoding="utf-8").lower() for path in files)
+    assert not audit_brand_safety(REPO_ROOT)
+    assert "PASS" in render_brand_safety(REPO_ROOT)
 
-    assert not any(reference in text for reference in FORBIDDEN_BRAND_REFERENCES)
+
+def test_brand_safety_reports_findings(tmp_path):
+    risky_file = tmp_path / "README.md"
+    risky_file.write_text("This mentions a risky " + "fix" + "-it" + " phrase.", encoding="utf-8")
+    findings = audit_brand_safety(tmp_path)
+
+    assert len(findings) == 1
+    assert findings[0].path == risky_file
+    assert "FAIL" in render_brand_safety(tmp_path)

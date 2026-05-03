@@ -17,6 +17,7 @@ Every agent Felix creates or maintains should have:
 - README with role, boundaries, commands, and safety gates
 - AGENTS.md wakeup file that tells a fresh LLM what to read before thinking
 - original agent identity image or image prompt that avoids copyright imitation
+- brand-safety scan for protected references in product, docs, prompts, and generated scaffolds
 - open-source health files when the agent may become reusable public software
 - router or orchestrator entry
 - Agentic Intelligence primitives: thinking, tools, memory, coordination, and goal orientation
@@ -73,6 +74,17 @@ Every Felix-built repo should include `AGENTS.md` at the root. It should tell a 
 - what proof makes a run done
 
 This is the file version of memory-as-substrate: read durable repo memory before thinking.
+
+## Brand Safety
+
+Every Felix-built repo should be able to run a protected-reference scan. Public Felix exposes:
+
+```bash
+felix brand-safety
+felix brand-safety --root path/to/agent-repo
+```
+
+Generated scaffolds include brand-safety test coverage, so protected brand/franchise references are caught by normal tests instead of relying on the maintainer to remember the risk.
 
 Source:
 
