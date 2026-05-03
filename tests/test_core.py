@@ -33,6 +33,7 @@ def test_standards_require_wiki_and_tasks():
     assert "task list" in text
     assert "abstract agent interface" in text
     assert "open-source health files" in text
+    assert "AGENT.md wakeup file" in text
     assert "original agent identity image" in text
     assert "visible agent name" in text
     assert "agentic intelligence context injection" in text
@@ -53,6 +54,7 @@ def test_roadmap_prioritizes_knox_then_capcom():
     assert "agentic intelligence gist" in text
     assert "have/want/don't-want" in text
     assert "Python agent CLI template" in text
+    assert "AGENT.md wakeup files" in text
 
 
 def test_scaffold_plan_specializes_knox_and_capcom():
@@ -60,6 +62,7 @@ def test_scaffold_plan_specializes_knox_and_capcom():
     assert "acknowledgement" in scaffold_plan("capcom")
     assert "Code Context Engine" in scaffold_plan("dewey")
     assert "agentic-context" in scaffold_plan("knox")
+    assert "AGENT.md wakeup file" in scaffold_plan("knox")
     assert "have, want, and don't want" in scaffold_plan("knox")
     assert "evidence to reconcile" in scaffold_plan("knox")
     assert "templates/python-agent-cli" in scaffold_plan("knox")
@@ -99,6 +102,8 @@ def test_agent_template_files_exist_and_encode_agent_shape():
     assert all(path.exists() for path in files)
     assert "agentic-context" in text
     assert "agentic-context-source" in text
+    assert "Agent Wakeup" in text
+    assert "Read First" in text
     assert "agent" in text
     assert "Have:" in text
     assert "Want:" in text

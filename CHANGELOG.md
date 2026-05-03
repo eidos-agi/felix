@@ -15,6 +15,7 @@ The format is based on Keep a Changelog, and this project follows Semantic Versi
 - Agent command standard for `have / want / don't want` orientation and tool-output reconciliation.
 - Reusable Python agent CLI template with `agentic-context`, `agentic-context-source`, and `agent` commands.
 - Agentic Intelligence primitive standards for thinking, tools, memory, coordination, hierarchy, and North Star goal-orientation.
+- AGENT.md wakeup template for fresh LLM agents entering a repo.
 - Registered Knox, Capcom, and Dewey as planned agents.
 - FOSS Forge health files and self-documentation.
 - Original Felix builder mascot.
