@@ -29,6 +29,7 @@ felix agents show knox
 felix standards
 felix brand-safety
 felix interview sage --purpose "Sage Intacct maintenance CLI"
+felix interview knox --purpose "secrets and access"
 felix agentic-context
 felix agentic-context-source
 felix agent-template
@@ -87,6 +88,8 @@ felix interview sage --purpose "Sage Intacct maintenance CLI"
 ```
 
 The interview makes the user define the human role being compiled into an agent, what the agent may decide, what it must not own, what existing agents it may overlap, which methods and constraints apply, and what proof shows the new agent is useful rather than duplicative.
+
+The interview is universal. It is not a Sage-specific workflow; Sage is only one example of turning a repeated maintenance job into a CLI-shaped agent. See [`examples/interviews`](examples/interviews) for different agent types.
 
 ## Design Principle
 
