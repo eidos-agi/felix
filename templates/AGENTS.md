@@ -1,4 +1,4 @@
-# Agent Wakeup
+# Agents Wakeup
 
 You are an LLM agent waking up in this repository.
 

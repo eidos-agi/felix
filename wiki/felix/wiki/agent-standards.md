@@ -15,7 +15,7 @@ Every agent Felix creates or maintains should have:
 - self-improvement loop page
 - tests for core local behavior
 - README with role, boundaries, commands, and safety gates
-- AGENT.md wakeup file that tells a fresh LLM what to read before thinking
+- AGENTS.md wakeup file that tells a fresh LLM what to read before thinking
 - original agent identity image or image prompt that avoids copyright imitation
 - open-source health files when the agent may become reusable public software
 - router or orchestrator entry
@@ -59,9 +59,9 @@ templates/python-agent-cli/
 
 Generated CLIs should copy or adapt that template until Felix ships a richer scaffold command.
 
-## Agent Wakeup
+## Agents Wakeup
 
-Every Felix-built repo should include `AGENT.md` at the root. It should tell a fresh LLM:
+Every Felix-built repo should include `AGENTS.md` at the root. It should tell a fresh LLM:
 
 - what this agent is
 - what to read first

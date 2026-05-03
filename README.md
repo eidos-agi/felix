@@ -49,7 +49,7 @@ Every agent Felix creates should have:
 - self-improvement loop
 - tests for core local behavior
 - README with role, boundaries, commands, and safety gates
-- AGENT.md wakeup file that tells a fresh LLM what to read before thinking
+- AGENTS.md wakeup file that tells a fresh LLM what to read before thinking
 - original agent identity image or image prompt that avoids copyright imitation
 - clear router or orchestrator entry
 - an abstract agent interface so Felix can work on capabilities, not storage layout
@@ -88,9 +88,9 @@ Felix-built agents inherit Daniel Shanklin's primitives from "The Primitives of 
 
 Those primitives are hierarchical. Felix should help agents choose the right layer: perception, reasoning, or planning for thinking; atomic calls, workflows, or skills for tools; short, mid, or long-term memory; messaging, organization, or interoperability for coordination.
 
-## Agent Wakeup
+## Agents Wakeup
 
-Every Felix-built repo should include an `AGENT.md` at the root. This is the first file a fresh LLM should read when it wakes up in the repo.
+Every Felix-built repo should include an `AGENTS.md` at the root. This is the first file a fresh LLM should read when it wakes up in the repo.
 
 The wakeup file should say what to read first, how to frame `have / want / don't want`, what counts as evidence, and what proof makes a run done. This makes repo memory substrate before thinking instead of a thing the agent may or may not remember to query.
 
@@ -210,7 +210,8 @@ The template lives in `templates/python-agent-cli/` and provides `agentic-contex
 
 Felix documents himself in:
 
-- [CLAUDE.md](CLAUDE.md): operating instructions for agents working in this repo
+- [AGENTS.md](AGENTS.md): canonical root instructions for agents working in this repo
+- [CLAUDE.md](CLAUDE.md): Claude-specific entrypoint that points to `AGENTS.md`
 - [docs/felix-self.md](docs/felix-self.md): identity, boundaries, and lifecycle
 - [docs/foss-forge-compliance.md](docs/foss-forge-compliance.md): FOSS Forge compliance notes
 - [docs/agent-identity-images.md](docs/agent-identity-images.md): prompt pattern for original agent art

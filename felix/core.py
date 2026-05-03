@@ -11,7 +11,7 @@ import urllib.request
 REPO_ROOT = Path(__file__).resolve().parents[1]
 WIKI_ROOT = REPO_ROOT / "wiki" / "felix"
 AGENT_TEMPLATE_ROOT = REPO_ROOT / "templates" / "python-agent-cli"
-AGENT_WAKEUP_TEMPLATE = REPO_ROOT / "templates" / "AGENT.md"
+AGENT_WAKEUP_TEMPLATE = REPO_ROOT / "templates" / "AGENTS.md"
 AGENTIC_INTELLIGENCE_CONTEXT_URL = (
     "https://gist.githubusercontent.com/dshanklin-bv/"
     "0ea9eae3845566a255f4fe9e0bf21590/raw/agentic_intelligence.md"
@@ -103,7 +103,7 @@ STANDARD_AGENT_REQUIREMENTS = (
     "self-improvement loop page",
     "tests for the core local behavior",
     "README with role, boundaries, commands, and safety gates",
-    "AGENT.md wakeup file that tells a fresh LLM what to read before thinking",
+    "AGENTS.md wakeup file that tells a fresh LLM what to read before thinking",
     "original agent identity image or image prompt that avoids copyright imitation and includes the visible agent name",
     "open-source health files when the agent may become reusable public software",
     "router or orchestrator entry",
@@ -161,7 +161,7 @@ def render_agent_template() -> str:
         "Felix Python agent CLI template",
         f"template: {AGENT_TEMPLATE_ROOT}",
         "",
-        "Copy these files into the generated CLI package:",
+        "Copy these files into the generated repo:",
     ]
     for path in agent_template_files():
         lines.append(f"- {path}")
@@ -175,7 +175,7 @@ def render_agent_template() -> str:
             "- primitives stance: thinking, tools, memory, coordination, and goal orientation",
             "- memory stance: memory is substrate for thinking, not an optional tool call",
             "- tool-output stance: evidence to reconcile, not verdicts to parrot",
-            "- AGENT.md: wakeup instructions for a fresh LLM entering the repo",
+            "- AGENTS.md: wakeup instructions for a fresh LLM entering the repo",
         ]
     )
     return "\n".join(lines)
@@ -195,7 +195,7 @@ def roadmap() -> str:
             "6b. Add an agentic-context command or equivalent startup hook that fetches the latest agentic intelligence gist before the LLM thinks.",
             "6c. Make agent commands ask for have/want/don't-want and reconcile tool outputs as evidence.",
             "6d. Use the Python agent CLI template for generated CLIs until a richer scaffold command exists.",
-            "7. Add AGENT.md wakeup files to scaffolds so fresh LLMs read memory before thinking.",
+            "7. Add AGENTS.md wakeup files to scaffolds so fresh LLMs read memory before thinking.",
             "8. Add agent identity image prompts to scaffolds so new agents have original visual identity.",
             "9. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
             "10. Add an agent adapter layer so checks and repairs compose across repo/wiki/task layouts.",
@@ -235,6 +235,8 @@ def run_checks() -> int:
 def self_checks() -> tuple[SelfCheck, ...]:
     checks = [
         SelfCheck("repo_name", REPO_ROOT.name == "felix", str(REPO_ROOT)),
+        SelfCheck("agents", (REPO_ROOT / "AGENTS.md").exists(), "AGENTS.md"),
+        SelfCheck("claude", (REPO_ROOT / "CLAUDE.md").exists(), "CLAUDE.md"),
         SelfCheck("readme", (REPO_ROOT / "README.md").exists(), "README.md"),
         SelfCheck("license", (REPO_ROOT / "LICENSE").exists(), "LICENSE"),
         SelfCheck("changelog", (REPO_ROOT / "CHANGELOG.md").exists(), "CHANGELOG.md"),
@@ -265,7 +267,7 @@ def scaffold_plan(name: str) -> str:
         f"Scaffold plan for {agent_name}",
         f"- create a canonical repo for {agent_name}",
         "- choose public or private visibility explicitly",
-        "- add AGENT.md wakeup file at repo root",
+        "- add AGENTS.md wakeup file at repo root",
         "- add Python CLI package and tests",
         "- add repo-native wiki/docs with north-stars and self-improvement loop",
         "- add repo-native project, milestones, and tasks",

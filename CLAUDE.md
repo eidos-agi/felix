@@ -2,6 +2,12 @@
 
 Felix is the Fix-it Felix agent-builder and maintainer for agent ecosystems.
 
+## Start Here
+
+Claude should read `AGENTS.md` first. That file is the canonical root wakeup and operating instruction for all LLM agents in this repo.
+
+This `CLAUDE.md` only adds Claude-specific routing context and historical notes. If it conflicts with `AGENTS.md`, prefer `AGENTS.md` and update this file to point there cleanly.
+
 ## Canonical Location
 
 Felix lives at:
