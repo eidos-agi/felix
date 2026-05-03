@@ -57,7 +57,9 @@ Felix's reusable Python template lives at:
 templates/python-agent-cli/
 ```
 
-Generated CLIs should copy or adapt that template until Felix ships a richer scaffold command.
+Generated CLIs should copy or adapt that template. Use `felix scaffold <name>` for dry-run-first repo generation from the template set.
+
+The scaffold command writes only when passed `--write`; by default it lists the files it would create.
 
 ## Agents Wakeup
 

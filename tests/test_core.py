@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from felix.core import (
     agentic_context_source,
     agent_template_files,
@@ -5,8 +7,11 @@ from felix.core import (
     doctor,
     find_agent,
     list_agents,
+    render_scaffold_result,
     render_self_checks,
     roadmap,
+    scaffold,
+    scaffold_files,
     scaffold_plan,
     self_checks,
     standards,
@@ -55,6 +60,7 @@ def test_roadmap_prioritizes_knox_then_capcom():
     assert "have/want/don't-want" in text
     assert "Python agent CLI template" in text
     assert "AGENTS.md wakeup files" in text
+    assert "felix scaffold agent-name" in text
 
 
 def test_scaffold_plan_specializes_knox_and_capcom():
@@ -66,6 +72,7 @@ def test_scaffold_plan_specializes_knox_and_capcom():
     assert "have, want, and don't want" in scaffold_plan("knox")
     assert "evidence to reconcile" in scaffold_plan("knox")
     assert "templates/python-agent-cli" in scaffold_plan("knox")
+    assert "felix scaffold <name>" in scaffold_plan("knox")
 
 
 def test_doctor_reports_wiki():
@@ -110,3 +117,53 @@ def test_agent_template_files_exist_and_encode_agent_shape():
     assert "Don't want:" in text
     assert "evidence to reconcile" in text
     assert "memory is part of thinking" in text
+
+
+def test_scaffold_dry_run_lists_generated_repo_files(tmp_path):
+    target = tmp_path / "test-agent"
+    result = scaffold("Test Agent", root=target)
+    output = render_scaffold_result(result)
+    paths = {file.path.relative_to(target) for file in result.files}
+
+    assert result.root == target.resolve()
+    assert not result.wrote
+    assert not target.exists()
+    assert "DRY RUN" in output
+    assert "No files written" in output
+    assert {
+        Path("AGENTS.md"),
+        Path("README.md"),
+        Path("pyproject.toml"),
+        Path("test_agent/cli.py"),
+        Path("test_agent/agentic_context.py"),
+        Path("tests/test_cli.py"),
+        Path("wiki/test-agent/wiki/index.md"),
+        Path("assets/test-agent-image-prompt.md"),
+    } <= paths
+
+
+def test_scaffold_write_creates_installable_cli_skeleton(tmp_path):
+    target = tmp_path / "demo-agent"
+    result = scaffold("demo-agent", root=target, write=True)
+
+    assert result.wrote
+    assert (target / "AGENTS.md").exists()
+    assert (target / "demo_agent" / "cli.py").exists()
+    assert (target / "pyproject.toml").read_text(encoding="utf-8").count("demo-agent") >= 2
+    assert 'prog="demo-agent"' in (target / "demo_agent" / "cli.py").read_text(encoding="utf-8")
+
+
+def test_scaffold_refuses_to_overwrite_without_force(tmp_path):
+    target = tmp_path / "demo-agent"
+    scaffold("demo-agent", root=target, write=True)
+    result = scaffold("demo-agent", root=target, write=True)
+
+    assert not result.wrote
+    assert result.skipped
+
+
+def test_scaffold_files_normalize_names(tmp_path):
+    files = scaffold_files("Demo Agent!", root=tmp_path / "demo-agent")
+    paths = {file.path for file in files}
+
+    assert tmp_path / "demo-agent" / "demo_agent" / "cli.py" in paths

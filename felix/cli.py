@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import argparse
+from pathlib import Path
 
 from .core import (
     agentic_context_source,
     render_agent_template,
+    render_scaffold_result,
     doctor,
     fetch_agentic_context,
     find_agent,
@@ -12,6 +14,7 @@ from .core import (
     render_self_checks,
     roadmap,
     run_checks,
+    scaffold,
     scaffold_plan,
     standards,
 )
@@ -41,6 +44,12 @@ def build_parser() -> argparse.ArgumentParser:
 
     scaffold_parser = subparsers.add_parser("scaffold-plan", help="show the planned scaffold for an agent")
     scaffold_parser.add_argument("name")
+
+    scaffold_write_parser = subparsers.add_parser("scaffold", help="dry-run or write a starter agent repo")
+    scaffold_write_parser.add_argument("name")
+    scaffold_write_parser.add_argument("--root", type=Path, help="target repo root; defaults to ./<name>")
+    scaffold_write_parser.add_argument("--write", action="store_true", help="write files; default is dry-run")
+    scaffold_write_parser.add_argument("--force", action="store_true", help="overwrite existing files when writing")
 
     return parser
 
@@ -101,6 +110,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "scaffold-plan":
         print(scaffold_plan(args.name))
         return 0
+
+    if args.command == "scaffold":
+        result = scaffold(args.name, root=args.root, write=args.write, force=args.force)
+        print(render_scaffold_result(result))
+        return 1 if result.skipped else 0
 
     parser.error("unhandled command")
     return 2

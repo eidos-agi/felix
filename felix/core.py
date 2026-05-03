@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import urllib.error
@@ -32,6 +33,20 @@ class SelfCheck:
     name: str
     ok: bool
     detail: str
+
+
+@dataclass(frozen=True)
+class ScaffoldFile:
+    path: Path
+    content: str
+
+
+@dataclass(frozen=True)
+class ScaffoldResult:
+    root: Path
+    files: tuple[ScaffoldFile, ...]
+    wrote: bool
+    skipped: tuple[Path, ...] = ()
 
 
 AGENTS: tuple[AgentSpec, ...] = (
@@ -159,12 +174,12 @@ def agent_template_files() -> tuple[Path, ...]:
 def render_agent_template() -> str:
     lines = [
         "Felix Python agent CLI template",
-        f"template: {AGENT_TEMPLATE_ROOT}",
+        f"template: {AGENT_TEMPLATE_ROOT.relative_to(REPO_ROOT)}",
         "",
         "Copy these files into the generated repo:",
     ]
     for path in agent_template_files():
-        lines.append(f"- {path}")
+        lines.append(f"- {path.relative_to(REPO_ROOT)}")
     lines.extend(
         [
             "",
@@ -181,6 +196,154 @@ def render_agent_template() -> str:
     return "\n".join(lines)
 
 
+def normalize_agent_name(name: str) -> str:
+    normalized = re.sub(r"[^a-z0-9-]+", "-", name.lower().strip()).strip("-")
+    if not normalized:
+        raise ValueError("agent name must contain at least one letter or number")
+    return normalized
+
+
+def package_name_for(agent_name: str) -> str:
+    return normalize_agent_name(agent_name).replace("-", "_")
+
+
+def _title_for(agent_name: str) -> str:
+    return " ".join(part.capitalize() for part in normalize_agent_name(agent_name).split("-"))
+
+
+def scaffold_files(name: str, root: Path | None = None) -> tuple[ScaffoldFile, ...]:
+    agent_name = normalize_agent_name(name)
+    package_name = package_name_for(agent_name)
+    title = _title_for(agent_name)
+    target = (root or Path.cwd() / agent_name).resolve()
+    cli_template = (AGENT_TEMPLATE_ROOT / "cli.py").read_text(encoding="utf-8").replace('prog="<agent-cli>"', f'prog="{agent_name}"')
+    files = (
+        ScaffoldFile(target / "AGENTS.md", AGENT_WAKEUP_TEMPLATE.read_text(encoding="utf-8")),
+        ScaffoldFile(
+            target / "README.md",
+            "\n".join(
+                [
+                    f"# {title}",
+                    "",
+                    f"{title} is a Felix-built agent CLI.",
+                    "",
+                    "## Commands",
+                    "",
+                    "```bash",
+                    f"{agent_name} --help",
+                    f"{agent_name} agentic-context-source",
+                    f"{agent_name} agent \"describe the work\"",
+                    "```",
+                    "",
+                    "## Agentic Intelligence",
+                    "",
+                    "This agent follows the Felix standards: thinking, tools, memory, coordination, and goal orientation.",
+                    "Memory is substrate, tools are evidence, and work is framed as `have / want / don't want`.",
+                    "",
+                ]
+            ),
+        ),
+        ScaffoldFile(
+            target / "pyproject.toml",
+            "\n".join(
+                [
+                    "[build-system]",
+                    'requires = ["setuptools>=69", "wheel"]',
+                    'build-backend = "setuptools.build_meta"',
+                    "",
+                    "[project]",
+                    f'name = "{agent_name}"',
+                    'version = "0.1.0"',
+                    f'description = "{title} agent CLI"',
+                    'requires-python = ">=3.12"',
+                    "dependencies = []",
+                    "",
+                    "[project.scripts]",
+                    f'{agent_name} = "{package_name}.cli:main"',
+                    "",
+                    "[tool.setuptools.packages.find]",
+                    'include = ["' + package_name + '*"]',
+                    "",
+                ]
+            ),
+        ),
+        ScaffoldFile(target / package_name / "__init__.py", '"""Felix-built agent package."""\n'),
+        ScaffoldFile(target / package_name / "agentic_context.py", (AGENT_TEMPLATE_ROOT / "agentic_context.py").read_text(encoding="utf-8")),
+        ScaffoldFile(target / package_name / "cli.py", cli_template),
+        ScaffoldFile(
+            target / "tests" / "test_cli.py",
+            "\n".join(
+                [
+                    f"from {package_name}.cli import main",
+                    "",
+                    "",
+                    "def test_agentic_context_source(capsys):",
+                    '    assert main(["agentic-context-source"]) == 0',
+                    "    output = capsys.readouterr().out",
+                    '    assert "gist.githubusercontent.com" in output',
+                    "",
+                    "",
+                    "def test_agent_brief(capsys):",
+                    '    assert main(["agent", "test work"]) == 0',
+                    "    output = capsys.readouterr().out",
+                    '    assert "Have:" in output',
+                    '    assert "Want:" in output',
+                    "    assert \"Don't want:\" in output",
+                    "",
+                ]
+            ),
+        ),
+        ScaffoldFile(
+            target / "wiki" / agent_name / "wiki" / "index.md",
+            f"---\ntitle: {title} Wiki\n---\n\n# {title} Wiki\n\nStart here for durable agent memory.\n",
+        ),
+        ScaffoldFile(
+            target / "wiki" / agent_name / "wiki" / "north-stars.md",
+            f"---\ntitle: {title} North Stars\n---\n\n# {title} North Stars\n\n- Keep the agent simple, useful, and oriented around its work.\n",
+        ),
+        ScaffoldFile(
+            target / "wiki" / agent_name / "wiki" / "self-improvement-loop.md",
+            f"---\ntitle: {title} Self-Improvement Loop\n---\n\n# {title} Self-Improvement Loop\n\nWhen this agent learns something durable, update the wiki, task list, tests, and CLI behavior as needed.\n",
+        ),
+        ScaffoldFile(
+            target / "wiki" / agent_name / "projects" / "main" / "tasks" / "001-bootstrap.md",
+            f"---\ntitle: Bootstrap {title}\nstatus: todo\npriority: high\n---\n\n# Bootstrap {title}\n\nVerify CLI, wiki, tasks, tests, install, and router entry.\n",
+        ),
+        ScaffoldFile(
+            target / "assets" / f"{agent_name}-image-prompt.md",
+            f"Create an original mascot or identity image for an open-source CLI named {title}. Include the exact readable wordmark \"{title}\" prominently. Do not resemble existing characters, brands, mascots, logos, or protected designs.\n",
+        ),
+    )
+    return files
+
+
+def scaffold(name: str, root: Path | None = None, *, write: bool = False, force: bool = False) -> ScaffoldResult:
+    files = scaffold_files(name, root=root)
+    target = files[0].path.parent
+    skipped = tuple(file.path for file in files if file.path.exists() and not force)
+    if write:
+        if skipped:
+            return ScaffoldResult(target, files, wrote=False, skipped=skipped)
+        for file in files:
+            file.path.parent.mkdir(parents=True, exist_ok=True)
+            file.path.write_text(file.content, encoding="utf-8")
+    return ScaffoldResult(target, files, wrote=write, skipped=())
+
+
+def render_scaffold_result(result: ScaffoldResult) -> str:
+    mode = "WRITE" if result.wrote else "DRY RUN"
+    lines = [f"Felix scaffold: {mode}", f"target: {result.root}", ""]
+    if result.skipped:
+        lines.append("Skipped existing files; rerun with --force to overwrite:")
+        lines.extend(f"- {path}" for path in result.skipped)
+        return "\n".join(lines)
+    lines.append("Files:")
+    lines.extend(f"- {file.path}" for file in result.files)
+    if not result.wrote:
+        lines.extend(["", "No files written. Rerun with --write to create them."])
+    return "\n".join(lines)
+
+
 def roadmap() -> str:
     return "\n".join(
         [
@@ -190,11 +353,11 @@ def roadmap() -> str:
             "3. Scaffold Capcom with interruption policy, channel routing, and acknowledgement tracking.",
             "4. Scaffold Dewey as the AI librarian for local indexed context retrieval and token-cost reduction.",
             "5. Add `felix audit` to verify each agent has CLI, wiki/docs, tasks, tests, install, git remote.",
-            "6. Add `felix scaffold agent-name` to create the standard repo skeleton.",
+            "6. Use `felix scaffold agent-name` to create the standard repo skeleton.",
             "6a. For user-specific private maintainer instances, install into the user's personal repo area.",
             "6b. Add an agentic-context command or equivalent startup hook that fetches the latest agentic intelligence gist before the LLM thinks.",
             "6c. Make agent commands ask for have/want/don't-want and reconcile tool outputs as evidence.",
-            "6d. Use the Python agent CLI template for generated CLIs until a richer scaffold command exists.",
+            "6d. Use the Python agent CLI template for generated CLIs.",
             "7. Add AGENTS.md wakeup files to scaffolds so fresh LLMs read memory before thinking.",
             "8. Add agent identity image prompts to scaffolds so new agents have original visual identity.",
             "9. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
@@ -275,7 +438,8 @@ def scaffold_plan(name: str) -> str:
         "- add an `agentic-context` CLI command or startup hook that fetches the latest agentic intelligence gist",
         "- add agent command framing around have, want, and don't want",
         "- make tool outputs evidence to reconcile, not verdicts to parrot",
-        f"- copy the Python agent CLI template from {AGENT_TEMPLATE_ROOT}",
+        f"- copy the Python agent CLI template from {AGENT_TEMPLATE_ROOT.relative_to(REPO_ROOT)}",
+        "- use `felix scaffold <name>` for dry-run-first repo generation",
         "- install editable CLI and verify `--help`",
         "- teach the chosen router/orchestrator how to route to it",
         "- commit and push",

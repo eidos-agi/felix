@@ -31,6 +31,8 @@ felix agentic-context
 felix agentic-context-source
 felix agent-template
 felix roadmap
+felix scaffold surfari
+felix scaffold surfari --write
 felix scaffold-plan capcom
 felix scaffold-plan dewey
 ```
@@ -205,6 +207,15 @@ felix agent-template
 ```
 
 The template lives in `templates/python-agent-cli/` and provides `agentic-context`, `agentic-context-source`, and `agent` commands for generated CLIs.
+
+Felix can also generate a starter repo from those templates. It is dry-run-first:
+
+```bash
+felix scaffold surfari
+felix scaffold surfari --write
+```
+
+The scaffold includes root `AGENTS.md`, Python package and CLI files, tests, wiki pages, a task skeleton, and an identity image prompt.
 
 ## Self-Documentation
 
