@@ -94,6 +94,7 @@ STANDARD_AGENT_REQUIREMENTS = (
     "self-improvement loop page",
     "tests for the core local behavior",
     "README with role, boundaries, commands, and safety gates",
+    "original agent identity image or image prompt that avoids copyright imitation",
     "FOSS Forge health files when the agent may become reusable open-source software",
     "Reeves memory/route entry",
     "abstract agent interface so Felix works on capabilities, not storage layout",
@@ -126,8 +127,9 @@ def roadmap() -> str:
             "4. Scaffold Dewey as the AI librarian for local indexed context retrieval and token-cost reduction.",
             "5. Add `felix audit` to verify each agent has CLI, wiki, Scridos tasks, tests, install, git remote.",
             "6. Add `felix scaffold agent-name` to create the standard repo skeleton.",
-            "7. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
-            "8. Add an agent adapter layer so checks and repairs compose across repo/wiki/task layouts.",
+            "7. Add agent identity image prompts to scaffolds so new agents have original visual identity.",
+            "8. Add repair playbooks for broken installs, stale wikis, missing tasks, and unpushed repos.",
+            "9. Add an agent adapter layer so checks and repairs compose across repo/wiki/task layouts.",
         ]
     )
 
@@ -178,6 +180,7 @@ def scaffold_plan(name: str) -> str:
         "- add Python CLI package and tests",
         "- add Scridos wiki with north-stars and self-improvement loop",
         "- add Scridos project, milestones, and tasks",
+        "- add assets/ with an original agent identity image prompt and optional generated image",
         "- install editable CLI and verify `--help`",
         "- teach Reeves how to route to it",
         "- commit and push",

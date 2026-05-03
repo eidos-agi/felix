@@ -27,6 +27,7 @@ Felix owns:
 - [[yoneda-agent-interface]] -- capability-first abstraction for maintaining agents
 - [[felix-self]] -- Felix's identity, boundaries, mascot, and canonical home
 - [[foss-forge-alignment]] -- how Felix follows FOSS Forge principles
+- [[agent-identity-images]] -- original image prompts for agent identity kits
 - [[knox-roadmap]] -- secrets/access agent roadmap
 - [[capcom-roadmap]] -- mission-control communicator roadmap
 - [[dewey-roadmap]] -- AI librarian roadmap for local indexed context retrieval

@@ -21,6 +21,7 @@ def test_standards_require_wiki_and_tasks():
     assert "task list" in text
     assert "abstract agent interface" in text
     assert "FOSS Forge" in text
+    assert "original agent identity image" in text
 
 
 def test_roadmap_prioritizes_knox_then_capcom():
@@ -29,6 +30,7 @@ def test_roadmap_prioritizes_knox_then_capcom():
     assert "Scaffold Knox" in text
     assert "Scaffold Capcom" in text
     assert "Scaffold Dewey" in text
+    assert "agent identity image prompts" in text
 
 
 def test_scaffold_plan_specializes_knox_and_capcom():
