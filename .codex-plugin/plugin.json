@@ -41,6 +41,8 @@
       "Ask Felix what standards this agent should inherit.",
       "Use Felix to check whether this agent repo is healthy."
     ],
-    "brandColor": "#F59E0B"
+    "brandColor": "#F59E0B",
+    "composerIcon": "./assets/plugin-icon.svg",
+    "logo": "./assets/plugin-logo.svg"
   }
 }
